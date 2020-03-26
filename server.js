@@ -10,6 +10,10 @@ db.once('open', () => console.log('connected to database'));
 
 app.use(express.json())
 
+app.get("/", (req, res) => {
+	res.json({"message": "wellcome to elive api"});
+})
+
 require('./routes/provider.routes')(app);
 
 app.listen(3000, () => console.log('server started'));
