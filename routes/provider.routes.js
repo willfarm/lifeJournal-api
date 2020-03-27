@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const providers = require('../controllers/provider.controller.js');
+    const providers = require('../Controllers/provider.controller.js');
 
     // Create a new Provider
     app.post('/providers', providers.create);
