@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.get('/providers/:providerId', providers.findOne);
 
     //Provider login
-    app.get('/providers/auth', providers.auth);
+    app.post('/providers/auth', providers.auth);
 
     // Update a Provider with providerId
     app.put('/providers/:providerId', providers.update);
