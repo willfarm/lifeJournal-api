@@ -21,6 +21,7 @@ exports.create = (req, res) => {
         insurance: req.body.insurance,
     })
 
+     console.log(err || "no error");
     // Save Provider in the database
     provider.save()
     .then(data => {
