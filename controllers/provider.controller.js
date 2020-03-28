@@ -47,6 +47,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.auth = (req, res) => {
+    console.log(req);
     Provider.findOne({ phoneNumber: req.body.phoneNumber}, (err, user) => {
         console.log('Provider Found =======================================')
         if (err) {
