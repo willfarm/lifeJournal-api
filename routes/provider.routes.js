@@ -10,6 +10,9 @@ module.exports = (app) => {
     // Retrieve a single Provider with providerId
     app.get('/providers/:providerId', providers.findOne);
 
+    //Provider login
+    app.get('/providers/auth', providers.auth);
+
     // Update a Provider with providerId
     app.put('/providers/:providerId', providers.update);
 

@@ -46,6 +46,23 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.auth = (req, res) => {
+    Provider.findOne({ phoneNumber: req.body.phoneNumber}, (err, user) => {
+        console.log('Provider Found =======================================')
+        if (err) {
+            console.log('error finding provider')
+            res.json(err)
+        }
+        if (user && user.password === req.body.password){
+          console.log('User and password is correct')
+          res.json(user);
+        } else {
+          console.log("Credentials wrong");
+          res.json({data: "Login invalid"});
+        }
+    })
+}
+
 // Find a single provider with a providerId
 exports.findOne = (req, res) => {
     Provider.findById(req.params.providerId)
