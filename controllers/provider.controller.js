@@ -21,12 +21,13 @@ exports.create = (req, res) => {
         insurance: req.body.insurance,
     })
 
-     console.log(err || "no error");
+
     // Save Provider in the database
     provider.save()
     .then(data => {
         res.send(data);
     }).catch(err => {
+        console.log(err || "no error");
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Provider."
         });
