@@ -102,7 +102,7 @@ exports.update = (req, res) => {
         clinic: req.body.provider.clinic,
         address: req.body.provider.address,
         phoneNumber: req.body.provider.phoneNumber,
-        beds: req.body.provider.provider.beds,
+        beds: req.body.provider.beds,
         patients: req.body.provider.patients,
         insurance: req.body.provider.insurance,
         lastUpdated: Date.now,
