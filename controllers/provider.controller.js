@@ -94,17 +94,16 @@ exports.update = (req, res) => {
             message: "provider content can not be empty"
         });
     }
-
     // Find provider and update it with the request body
     Provider.findByIdAndUpdate(req.params.providerId, {
-        name: req.body.name,
-        password: req.body.password,
-        clinic: req.body.clinic,
-        address: req.body.address,
-        phoneNumber: req.body.phoneNumber,
-        beds: req.body.beds,
-        patients: req.body.patients,
-        insurance: req.body.insurance,
+        name: req.body.provider.name,
+        password: req.body.provider.password,
+        clinic: req.body.provider.clinic,
+        address: req.body.provider.address,
+        phoneNumber: req.body.provider.phoneNumber,
+        beds: req.body.provider.provider.beds,
+        patients: req.body.provider.patients,
+        insurance: req.body.provider.insurance,
         lastUpdated: Date.now,
      }, {new: true})
     .then(provider => {
