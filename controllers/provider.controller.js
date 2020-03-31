@@ -89,7 +89,7 @@ exports.findOne = (req, res) => {
 // Update a provider identified by the providerId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if(!req.body.content) {
+    if(!req.body.provider) {
         return res.status(400).send({
             message: "provider content can not be empty"
         });
