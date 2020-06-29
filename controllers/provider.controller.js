@@ -81,7 +81,7 @@ exports.findOne = (req, res) => {
   Provider.findById(req.params.providerId)
     .then((provider) => {
       if (!provider) {
-        return res.status(404).send({
+        return res.status(401).send({
           message:
             "Provider not found with providerId " + req.params.providerId,
         });
