@@ -19,6 +19,12 @@ exports.create = (req, res) => {
         beds: req.body.beds,
         patients: req.body.patients,
         insurance: req.body.insurance,
+        english: req.body.english,
+        spanish: req.body.spanish,
+        am: req.body.am,
+        pm: req.body.pm,
+        inPatient: req.body.inPatient,
+        outPatient: req.body.outPatient,
     })
 
 
@@ -71,14 +77,14 @@ exports.findOne = (req, res) => {
         if(!provider) {
             return res.status(404).send({
                 message: "Provider not found with providerId " + req.params.providerId
-            });            
+            });
         }
         res.send(provider);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
                 message: "Provider not found with providerId " + req.params.providerId
-            });                
+            });
         }
         return res.status(500).send({
             message: "Error retrieving provider with providerId " + req.params.providerId
@@ -105,6 +111,12 @@ exports.update = (req, res) => {
         beds: req.body.provider.beds,
         patients: req.body.provider.patients,
         insurance: req.body.provider.insurance,
+        english: req.body.english,
+        spanish: req.body.spanish,
+        am: req.body.am,
+        pm: req.body.pm,
+        inPatient: req.body.inPatient,
+        outPatient: req.body.outPatient,
         lastUpdated: Date.now,
      }, {new: true})
     .then(provider => {
@@ -118,7 +130,7 @@ exports.update = (req, res) => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
                 message: "Provider not found with id " + req.params.providerId
-            });                
+            });
         }
         return res.status(500).send({
             message: "Error updating provider with id " + req.params.providerId
@@ -140,10 +152,30 @@ exports.delete = (req, res) => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
                 message: "provider not found with id " + req.params.providerId
-            });                
+            });
         }
         return res.status(500).send({
             message: "Could not delete Provider with id " + req.params.providerId
         });
     });
 };
+
+exports.forgot = (req, res) => {
+  Provider.findOne({'clinicName' : req.params.clinicName})
+  .then(provier => {
+    if(!provider) {
+      return res.status(404).send({
+        message: "can not find Clinic"
+      });
+
+    } else {
+
+    }
+  }).catch(err => {
+    if (err) {
+      return res.status(404).send({
+        message: "error"
+      })
+    }
+  })
+}

@@ -13,6 +13,10 @@ const ProviderSchema = new mongoose.Schema({
     	type: String,
     	required: true
   	},
+		email: {
+			type: String,
+			required: false
+		},
   	address: {
     	type: String,
     	required: true
@@ -31,6 +35,30 @@ const ProviderSchema = new mongoose.Schema({
   	},
   	insurance: {
     	type: String,
+    	required: true
+  	},
+		inPatient: {
+    	type: Boolean,
+    	required: true
+  	},
+		outPatient: {
+    	type: Boolean,
+    	required: true
+  	},
+		am: {
+    	type: Boolean,
+    	required: true
+  	},
+		pm: {
+    	type: Boolean,
+    	required: true
+  	},
+		english: {
+    	type: Boolean,
+    	required: true
+  	},
+		spanish: {
+    	type: Boolean,
     	required: true
   	},
 })
