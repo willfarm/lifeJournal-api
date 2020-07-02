@@ -1,6 +1,6 @@
 const Provider = require("../models/provider.model.js");
 const Reset = require("../models/reset.model.js");
-const { sendResetLink } = require("../models/helpers/email.helper.js");
+const nodemailer = require("nodemailer");
 
 // Create and Save a new provider
 exports.create = (req, res) => {
@@ -187,7 +187,26 @@ exports.forgot = (req, res) => {
         email: thisUser.email,
       };
       const reset = new Reset(request);
-      sendResetLink(provider.email, id);
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "noreply.elivehealth@gmail.com",
+          pass: "1234qwer!@#$QWER",
+        },
+      });
+
+      let mailOptions = {
+        from: "noreply.eliveheath@gmail.com",
+        to: email,
+        subject: "Elive Forgot Password",
+        text: `To reset your password, please click on this link: http://elive-web.herokuapp.com/reset/${id}`,
+      };
+
+      transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+          console.log(err);
+        }
+      });
     }
     res.status(200).json();
   });
