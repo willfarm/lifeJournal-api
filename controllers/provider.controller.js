@@ -208,7 +208,7 @@ exports.forgot = (req, res) => {
         }
       });
     }
-    res.status(200).json();
+    return res.status(200).json();
   });
 };
 
@@ -237,6 +237,7 @@ exports.reset = (req, res) => {
             });
         }
       });
+      return res.status(200);
     }
   });
 };
