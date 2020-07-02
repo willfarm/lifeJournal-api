@@ -1,4 +1,6 @@
 const Provider = require("../models/provider.model.js");
+const Reset = require("../models/reset.model.js");
+const { sendResetLink } = require("../models/helpers/email.helper.js");
 
 // Create and Save a new provider
 exports.create = (req, res) => {
@@ -177,20 +179,45 @@ exports.delete = (req, res) => {
 };
 
 exports.forgot = (req, res) => {
-  Provider.findOne({ clinicName: req.params.clinicName })
-    .then((provier) => {
-      if (!provider) {
-        return res.status(404).send({
-          message: "can not find Clinic",
-        });
-      } else {
-      }
-    })
-    .catch((err) => {
-      if (err) {
-        return res.status(404).send({
-          message: "error",
-        });
-      }
-    });
+  Provider.findOne({ email: req.params.email }).then((provider) => {
+    if (provider) {
+      const id = uuidv1();
+      const request = {
+        id,
+        email: thisUser.email,
+      };
+      const reset = new Reset(request);
+      sendResetLink(provider.email, id);
+    }
+    res.status(200).json();
+  });
+};
+
+exports.reset = (req, res) => {
+  Reset.findOne({ id: req.body.id }).then((reset) => {
+    if (!reset) {
+      return res.status(404).send({
+        message: "invalid id",
+      });
+    } else {
+      Provider.findOne({ email: reset.email }).then((provider) => {
+        if (provider) {
+          provider.password = req.body.password;
+          provider
+            .save()
+            .then((data) => {
+              res.send(data);
+            })
+            .catch((err) => {
+              console.log(err || "no error");
+              res.status(500).send({
+                message:
+                  err.message ||
+                  "Some error occurred while creating the Provider.",
+              });
+            });
+        }
+      });
+    }
+  });
 };
