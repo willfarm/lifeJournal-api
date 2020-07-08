@@ -1,6 +1,7 @@
 const Provider = require("../models/provider.model.js");
 const Reset = require("../models/reset.model.js");
 const nodemailer = require("nodemailer");
+const uuidv1 = require("uuidv1");
 
 // Create and Save a new provider
 exports.create = (req, res) => {
@@ -15,6 +16,7 @@ exports.create = (req, res) => {
   const provider = new Provider({
     name: req.body.name,
     password: req.body.password,
+    email: req.body.email,
     clinicName: req.body.clinicName,
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
@@ -121,6 +123,7 @@ exports.update = (req, res) => {
       password: req.body.provider.password,
       clinic: req.body.provider.clinic,
       address: req.body.provider.address,
+      email: req.body.provider.email,
       phoneNumber: req.body.provider.phoneNumber,
       beds: req.body.provider.beds,
       patients: req.body.provider.patients,
@@ -179,12 +182,14 @@ exports.delete = (req, res) => {
 };
 
 exports.forgot = (req, res) => {
-  Provider.findOne({ email: req.params.email }).then((provider) => {
+  console.log(req.body);
+  Provider.findOne({ email: req.body.email }).then((provider) => {
+    console.log(provider);
     if (provider) {
       const id = uuidv1();
       const request = {
         id,
-        email: thisUser.email,
+        email: provider.email,
       };
       const reset = new Reset(request);
       let transporter = nodemailer.createTransport({
@@ -197,7 +202,7 @@ exports.forgot = (req, res) => {
 
       let mailOptions = {
         from: "noreply.eliveheath@gmail.com",
-        to: email,
+        to: provider.email,
         subject: "Elive Forgot Password",
         text: `To reset your password, please click on this link: http://elive-web.herokuapp.com/reset/${id}`,
       };

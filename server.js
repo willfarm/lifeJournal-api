@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 
+app.use(cors());
 mongoose.connect(
   "mongodb://eliveadmin:Farmerie12@ds227664.mlab.com:27664/heroku_pz69pc25",
   { useNewUrlParser: true }
@@ -12,7 +13,6 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("connected to database"));
 
-app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {

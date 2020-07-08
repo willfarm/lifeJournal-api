@@ -20,8 +20,8 @@ module.exports = (app) => {
   app.delete("/providers/:providerId", providers.delete);
 
   // Forgot Password
-  app.forgot("/forgot-password", providers.forgot);
+  app.post("/forgot-password", providers.forgot);
 
   // Reset Password
-  app.reset("/reset/:id", providers.reset);
+  app.post("/reset/:id", providers.reset);
 };
