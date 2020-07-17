@@ -29,7 +29,7 @@ exports.create = (req, res) => {
     pm: req.body.pm,
     inPatient: req.body.inPatient,
     outPatient: req.body.outPatient,
-    lastUpdated: Date.now().toLocaleString(),
+    lastUpdated: Date.now(),
   });
 
   // Save Provider in the database
@@ -135,7 +135,7 @@ exports.update = (req, res) => {
       pm: req.body.pm,
       inPatient: req.body.inPatient,
       outPatient: req.body.outPatient,
-      lastUpdated: Date.now().toLocaleString(),
+      lastUpdated: Date.now(),
     },
     { new: true }
   )

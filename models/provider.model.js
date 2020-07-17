@@ -64,7 +64,7 @@ const ProviderSchema = new mongoose.Schema({
   lastUpdated: {
     type: Date,
     required: true,
-    default: Date.now().toLocaleString(),
+    default: Date.now(),
   },
 });
 
