@@ -116,7 +116,7 @@ exports.update = (req, res) => {
       message: "provider content can not be empty",
     });
   }
-  console.log(req.body.provider);
+  console.log(req.body);
   // Find provider and update it with the request body
   Provider.findByIdAndUpdate(
     req.params.providerId,
