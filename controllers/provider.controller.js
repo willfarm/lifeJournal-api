@@ -67,8 +67,8 @@ exports.auth = (req, res) => {
       console.log("error finding provider");
       res.json(err);
     }
-
-    console.log(req.body);
+    console.log(user.password);
+    console.log(req.body.password);
     if (user && user.password === req.body.password) {
       console.log("User and password is correct");
       res.json(user);
