@@ -148,6 +148,7 @@ exports.update = (req, res) => {
       res.send(provider);
     })
     .catch((err) => {
+      console.log(err);
       if (err.kind === "ObjectId") {
         return res.status(404).send({
           message: "Provider not found with id " + req.params.providerId,
