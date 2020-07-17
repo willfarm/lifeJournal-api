@@ -122,7 +122,7 @@ exports.update = (req, res) => {
     req.params.providerId,
     {
       name: req.body.name,
-      clinic: req.body.clinic,
+      clinic: req.body.clinicName,
       address: req.body.address,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
