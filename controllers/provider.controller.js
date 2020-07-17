@@ -116,13 +116,13 @@ exports.update = (req, res) => {
       message: "provider content can not be empty",
     });
   }
-  console.log(req.body);
+  console.log(req.body.clinicName);
   // Find provider and update it with the request body
   Provider.findByIdAndUpdate(
     req.params.providerId,
     {
       name: req.body.name,
-      clinic: req.body.clinicName,
+      clinicName: req.body.clinicName,
       address: req.body.address,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
@@ -140,6 +140,7 @@ exports.update = (req, res) => {
     { new: true }
   )
     .then((provider) => {
+      console.log(provider);
       if (!provider) {
         return res.status(404).send({
           message: "provider not found with id " + req.params.providerId,
