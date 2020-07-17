@@ -61,6 +61,11 @@ const ProviderSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  lastUpdated: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Provider", ProviderSchema);

@@ -29,6 +29,7 @@ exports.create = (req, res) => {
     pm: req.body.pm,
     inPatient: req.body.inPatient,
     outPatient: req.body.outPatient,
+    lastUpdated: Date.now,
   });
 
   // Save Provider in the database
@@ -120,15 +121,14 @@ exports.update = (req, res) => {
   Provider.findByIdAndUpdate(
     req.params.providerId,
     {
-      name: req.body.provider.name,
-      password: req.body.provider.password,
-      clinic: req.body.provider.clinic,
-      address: req.body.provider.address,
-      email: req.body.provider.email,
-      phoneNumber: req.body.provider.phoneNumber,
-      beds: req.body.provider.beds,
-      patients: req.body.provider.patients,
-      insurance: req.body.provider.insurance,
+      name: req.body.name,
+      clinic: req.body.clinic,
+      address: req.body.address,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      beds: req.body.beds,
+      patients: req.body.patients,
+      insurance: req.body.insurance,
       english: req.body.english,
       spanish: req.body.spanish,
       am: req.body.am,

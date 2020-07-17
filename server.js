@@ -21,4 +21,4 @@ app.get("/", (req, res) => {
 
 require("./routes/provider.routes")(app);
 
-app.listen(process.env.PORT || 3000, () => console.log("server started"));
+app.listen(process.env.PORT || 3100, () => console.log("server started"));
