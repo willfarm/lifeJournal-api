@@ -135,7 +135,7 @@ exports.update = (req, res) => {
       pm: req.body.pm,
       inPatient: req.body.inPatient,
       outPatient: req.body.outPatient,
-      lastUpdated: Date.now,
+      lastUpdated: Date.now(),
     },
     { new: true }
   )
