@@ -61,13 +61,14 @@ exports.findAll = (req, res) => {
 };
 
 exports.auth = (req, res) => {
-  console.log(req);
   Provider.findOne({ phoneNumber: req.body.phoneNumber }, (err, user) => {
     console.log("Provider Found =======================================");
     if (err) {
       console.log("error finding provider");
       res.json(err);
     }
+
+    console.log(req.body);
     if (user && user.password === req.body.password) {
       console.log("User and password is correct");
       res.json(user);
