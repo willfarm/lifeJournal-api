@@ -75,7 +75,7 @@ exports.auth = (req, res) => {
     } else {
       console.log("Credentials wrong");
       res.status(404).send({
-        message: "Login Invalid",
+        message: "Incorrect Credentials",
       });
     }
   });
@@ -149,102 +149,4 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          message: "Provider not found with id " + req.params.providerId,
-        });
-      }
-      return res.status(500).send({
-        message: "Error updating provider with id " + req.params.providerId,
-      });
-    });
-};
-
-// Delete a provider with the specified providerId in the request
-exports.delete = (req, res) => {
-  Provider.findByIdAndRemove(req.params.providerId)
-    .then((provider) => {
-      if (!provider) {
-        return res.status(404).send({
-          message: "Provider not found with id " + req.params.providerId,
-        });
-      }
-      res.send({ message: "Provider deleted successfully!" });
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId" || err.name === "NotFound") {
-        return res.status(404).send({
-          message: "provider not found with id " + req.params.providerId,
-        });
-      }
-      return res.status(500).send({
-        message: "Could not delete Provider with id " + req.params.providerId,
-      });
-    });
-};
-
-exports.forgot = (req, res) => {
-  console.log(req.body);
-  Provider.findOne({ email: req.body.email }).then((provider) => {
-    console.log(provider);
-    if (provider) {
-      const id = uuidv1();
-      const request = {
-        id,
-        email: provider.email,
-      };
-      const reset = new Reset(request);
-      let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "noreply.elivehealth@gmail.com",
-          pass: "1234qwer!@#$QWER",
-        },
-      });
-
-      let mailOptions = {
-        from: "noreply.eliveheath@gmail.com",
-        to: provider.email,
-        subject: "Elive Forgot Password",
-        text: `To reset your password, please click on this link: http://elive-web.herokuapp.com/reset/${id}`,
-      };
-
-      transporter.sendMail(mailOptions, function (err, data) {
-        if (err) {
-          console.log(err);
-        }
-      });
-    }
-    return res.status(200).json();
-  });
-};
-
-exports.reset = (req, res) => {
-  Reset.findOne({ id: req.body.id }).then((reset) => {
-    if (!reset) {
-      return res.status(404).send({
-        message: "invalid id",
-      });
-    } else {
-      Provider.findOne({ email: reset.email }).then((provider) => {
-        if (provider) {
-          provider.password = req.body.password;
-          provider
-            .save()
-            .then((data) => {
-              res.send(data);
-            })
-            .catch((err) => {
-              console.log(err || "no error");
-              res.status(500).send({
-                message:
-                  err.message ||
-                  "Some error occurred while creating the Provider.",
-              });
-            });
-        }
-      });
-      return res.status(200);
-    }
-  });
-};
+      if (err.kind === "Obje

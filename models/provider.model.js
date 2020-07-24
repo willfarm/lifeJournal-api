@@ -27,39 +27,39 @@ const ProviderSchema = new mongoose.Schema({
   },
   beds: {
     type: String,
-    required: true,
+    required: false,
   },
   patients: {
     type: String,
-    required: true,
+    required: false,
   },
   insurance: {
     type: [String],
-    required: true,
+    required: false,
   },
   inPatient: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   outPatient: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   am: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   pm: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   english: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   spanish: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   lastUpdated: {
     type: Date,
