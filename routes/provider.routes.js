@@ -1,27 +1,27 @@
 module.exports = (app) => {
-  const providers = require("../controllers/provider.controller");
+  const user = require("../controllers/user.controller");
 
-  // Create a new Provider
-  app.post("/providers", providers.create);
+  // Create a new user
+  app.post("/user", user.create);
 
-  // Retrieve all Providers
-  app.get("/providers", providers.findAll);
+  // Retrieve all user
+  app.get("/user", user.findAll);
 
-  // Retrieve a single Provider with providerId
-  app.get("/providers/:providerId", providers.findOne);
+  // Retrieve a single user with userId
+  app.get("/user/:userId", user.findOne);
 
-  //Provider login
-  app.post("/providers/auth", providers.auth);
+  //user login
+  app.post("/user/auth", user.auth);
 
-  // Update a Provider with providerId
-  app.put("/providers/:providerId", providers.update);
+  // Update a user with userId
+  app.put("/user/:userId", user.update);
 
-  // Delete a Provider with providerId
-  app.delete("/providers/:providerId", providers.delete);
+  // Delete a user with userId
+  app.delete("/user/:userId", user.delete);
 
   // Forgot Password
-  app.post("/forgot-password", providers.forgot);
+  app.post("/forgot-password", user.forgot);
 
   // Reset Password
-  app.post("/reset/:id", providers.reset);
+  app.post("/reset/:id", user.reset);
 };
