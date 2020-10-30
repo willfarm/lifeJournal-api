@@ -13,9 +13,9 @@ db.once("open", () => console.log("connected to database"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({ message: "wellcome to elive api" });
+  res.json({ message: "wellcome to Life Journal api" });
 });
 
-require("./routes/provider.routes")(app);
+require("./routes/user.routes")(app);
 
-app.listen(process.env.PORT || 3100, () => console.log("server started"));
+app.listen(process.env.PORT || 3000, () => console.log("server started"));

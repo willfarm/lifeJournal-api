@@ -50,22 +50,45 @@ exports.findAll = (req, res) => {
 };
 
 exports.auth = (req, res) => {
-  User.findOne({ phoneNumber: req.body.phoneNumber }, (err, user) => {
+  let { email, password } = req.body
+  console.log(req.body)
+  User.findOne({ email: email }, (err, user) => {
     console.log("User Found =======================================");
     if (err) {
       console.log("error finding user");
       res.json(err);
     }
-
-    if (user && user.password === req.body.password) {
-      console.log("User and password is correct");
-      res.json(user);
+    if (user) {
+      user.comparePassword(password).then(isMatch => {
+        if (isMatch) {
+          res.json(user);
+        } else {
+          console.log("Credentials wrong");
+        res.status(404).send({
+          message: "Incorrect Credentials",
+        });
+        }
+      })
     } else {
-      console.log("Credentials wrong");
-      res.status(404).send({
-        message: "Incorrect Credentials",
+      let user = new User({
+        email,
+        password
+      });
+      user.save()
+      .then(user => {
+       res.status(200).send({
+         user
+       })
+      })
+      .catch(e => {
+        res.status(400).send({
+          message: "Error Creating user",
+          error: err
+        })
       });
     }
+
+    
   });
 };
 
@@ -86,7 +109,7 @@ exports.authenticateWithApple = (req, res) => {
           res.status(401).send(err.message);
         } else {
           const user = new User({
-            req.body
+            email, apple_id
           });
           // Save User in the database
           user

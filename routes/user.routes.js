@@ -13,6 +13,9 @@ module.exports = (app) => {
   //user login
   app.post("/user/auth", user.auth);
 
+  //user login / signup with Apple
+  app.post("/user/authenticateWithApple", user.authenticateWithApple);
+
   // Update a user with userId
   app.put("/user/:userId", user.update);
 
