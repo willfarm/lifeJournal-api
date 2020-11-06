@@ -25,3 +25,21 @@ exports.create = (req, res) => {
         });
       });
   };
+
+  exports.getJournals = (req, res) => {
+    let uid = req.params.uid
+
+    Journal.find({user : uid}).then((journals) => {
+      if (!journals) {
+        return res.status(400).send({
+          message: "No Journals Found"
+        })
+      }
+      return res.status(200).send(journals)
+    }).catch((err) => {
+      console.log(err)
+      return res.status(400).send({
+        message: err
+      })
+    })
+  }
