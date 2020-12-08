@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const teachingNotesModel = require("./teachingNotes.model");
 const SALT_WORK_FACTOR = 10;
+
+const Journal = require('./journal.model').schema
+const Thankfulness = require('./thankfulness.model').schema
+const BibleStudy = require('./bibleStudy.model').schema
+const DailyRoutine = require('./dailyRoutine.model').schema
+const Prayer = require('./prayer.model').schema
+const TeachingNotes = require('./teachingNotes.model').schema
 
 const UserSchema = new mongoose.Schema({
   password: {
@@ -20,6 +28,13 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: Date.now(),
   },
+  journals: [Journal],
+  thankfulness: [Thankfulness],
+  bibleStudys: [BibleStudy],
+  dailyRoutine: [DailyRoutine],
+  prayer: [Prayer],
+  teachingNotes: [TeachingNotes]
+
 });
 
 UserSchema.pre('save', function(next) {

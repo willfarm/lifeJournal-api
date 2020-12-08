@@ -9,21 +9,30 @@ exports.create = (req, res) => {
         message: "Journal content can not be empty",
       });
     }
-    // Create a journal
+    console.log(req.body)
     const journal = new Journal(req.body);
-    // Save journal in the database
-    journal
-      .save()
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        console.log(err || "no error");
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the User.",
-        });
+     
+    let userId = req.body.user
+    User.findById(userId).then((user) => {
+    
+     user.journals.push(journal)
+     user.save()
+     journal
+       .save()
+       .then((data) => {
+         res.send(data);
+       })
+       
+    })
+    .catch((err) => {
+      console.log(err || "no error");
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the User.",
       });
+    });
+     
+   
   };
 
   exports.getJournals = (req, res) => {

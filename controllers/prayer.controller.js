@@ -1,23 +1,23 @@
 const User = require("../models/user.model.js");
-const Thankfulness = require("../models/thankfulness.model.js");
+const Prayer = require("../models/prayer.model.js");
 
 
 exports.create = (req, res) => {
     // Validate request
     if (!req.body) {
       return res.status(400).send({
-        message: "Thankfulness content can not be empty",
+        message: "Prayer content can not be empty",
       });
     }
-    // Create a thankfulness
-    const thankfulness = new Thankfulness(req.body);
+    // Create a prayer
+    const prayer = new Prayer(req.body);
     let userId = req.body.user
 
     User.findById(userId).then((user) => {
     
-     user.thankfulness.push(thankfulness)
+     user.prayer.push(prayer)
      user.save()
-     thankfulness
+     prayer
        .save()
        .then((data) => {
          res.send(data);
@@ -33,16 +33,16 @@ exports.create = (req, res) => {
     });
   };
 
-  exports.getThankfulness = (req, res) => {
+  exports.getPrayer = (req, res) => {
     let uid = req.params.uid
 
-    Thankfulness.find({user : uid}).then((thankfulnesss) => {
-      if (!thankfulnesss) {
+    Prayer.find({user : uid}).then((prayers) => {
+      if (!prayers) {
         return res.status(400).send({
-          message: "No Thankfulness Found"
+          message: "No Prayer Found"
         })
       }
-      return res.status(200).send(thankfulnesss)
+      return res.status(200).send(prayers)
     }).catch((err) => {
       console.log(err)
       return res.status(400).send({
