@@ -3,7 +3,7 @@ module.exports = (app) => {
   // Create a new Journal
   app.post("/teachingNotes", teachingNotes.create);
 
-  //get all journals for user
+  //get all teachingNotes for user
   app.get("/teachingNotes/:uid", teachingNotes.getTeachingNotes);
 
   // // Retrieve a single journal with journalId
