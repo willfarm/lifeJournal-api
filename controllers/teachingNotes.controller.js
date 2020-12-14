@@ -1,5 +1,5 @@
 const User = require("../models/user.model.js");
-const TeachingNotes = require("../models/TeachingNotes.model.js");
+const TeachingNotes = require("../models/teachingNotes.model.js");
 
 exports.create = (req, res) => {
   // Validate request
