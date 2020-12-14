@@ -3,16 +3,17 @@ const mongoose = require("mongoose");
 const PrayerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User'
+    ref: "User",
   },
   date: {
-      type: Date,
+    type: Date,
   },
   prayerText: {
-      type: String,
-      required: true
+    type: String,
+    required: true,
   },
-  answered: Boolean
+  answered: Boolean,
+  isLongForm: Booklean,
 });
 
 module.exports = mongoose.model("Prayer", PrayerSchema);
