@@ -3,8 +3,8 @@ module.exports = (app) => {
   // Create a new Journal
   app.post("/bibleStudy", bibleStudy.create);
 
-  //get all journals for user
-  app.get("/bibleStudy/:uid", bibleStudy.getJournals);
+  //get all Bible Study for user
+  app.get("/bibleStudy/:uid", bibleStudy.getBibleStudy);
 
   // // Retrieve a single journal with journalId
   // app.get("/journal/:userId", journal.getAllJournalsForUser);

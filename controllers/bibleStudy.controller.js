@@ -32,13 +32,13 @@ exports.getBibleStudy = (req, res) => {
   let uid = req.params.uid;
 
   BibleStudy.find({ user: uid })
-    .then((BibleStudys) => {
-      if (!BibleStudys) {
+    .then((bibleStudies) => {
+      if (!bibleStudies) {
         return res.status(400).send({
           message: "No BibleStudys Found",
         });
       }
-      return res.status(200).send(BibleStudys);
+      return res.status(200).send(bibleStudies);
     })
     .catch((err) => {
       console.log(err);

@@ -20,5 +20,6 @@ require("./routes/user.routes")(app);
 require("./routes/journal.routes")(app);
 require("./routes/thankfulness.routes")(app);
 require("./routes/teachingNotes.routes")(app);
+require("./routes/bibleStudy.routes")(app);
 
 app.listen(process.env.PORT || 3000, () => console.log("server started"));
