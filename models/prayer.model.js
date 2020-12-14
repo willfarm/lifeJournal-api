@@ -13,7 +13,7 @@ const PrayerSchema = new mongoose.Schema({
     required: true,
   },
   answered: Boolean,
-  isLongForm: Booklean,
+  isLongForm: Boolean,
 });
 
 module.exports = mongoose.model("Prayer", PrayerSchema);
