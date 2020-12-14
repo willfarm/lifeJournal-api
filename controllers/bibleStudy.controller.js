@@ -1,22 +1,22 @@
 const User = require("../models/user.model.js");
-const TeachingNotes = require("../models/teachingNotes.model.js");
+const BibleStudy = require("../models/bibleStudy.model.js");
 
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     return res.status(400).send({
-      message: "TeachingNotes content can not be empty",
+      message: "BibleStudy content can not be empty",
     });
   }
   console.log(req.body);
-  const teachingNotes = new TeachingNotes(req.body);
+  const bibleStudy = new BibleStudy(req.body);
 
   let userId = req.body.user;
   User.findById(userId)
     .then((user) => {
-      user.teachingNotes.push(TeachingNotes);
+      user.bibleStudy.push(BibleStudy);
       user.save();
-      teachingNotes.save().then((data) => {
+      BibleStudy.save().then((data) => {
         res.send(data);
       });
     })
@@ -28,17 +28,17 @@ exports.create = (req, res) => {
     });
 };
 
-exports.getTeachingNotes = (req, res) => {
+exports.getBibleStudy = (req, res) => {
   let uid = req.params.uid;
 
-  TeachingNotes.find({ user: uid })
-    .then((TeachingNotess) => {
-      if (!TeachingNotess) {
+  BibleStudy.find({ user: uid })
+    .then((BibleStudys) => {
+      if (!BibleStudys) {
         return res.status(400).send({
-          message: "No TeachingNotess Found",
+          message: "No BibleStudys Found",
         });
       }
-      return res.status(200).send(TeachingNotess);
+      return res.status(200).send(BibleStudys);
     })
     .catch((err) => {
       console.log(err);
