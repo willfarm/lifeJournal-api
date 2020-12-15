@@ -64,12 +64,15 @@ exports.getDayForUser = (req, res) => {
         prayer: results[6],
       };
       console.log(resultsObject);
+
+      return res.status(200).send(resultsObject);
       // results[0] will have docs of first query
       // results[1] will have docs of second query
       // and so on...
       // you can combine all the results here and send back in response
     })
     .catch((err) => {
+      return res.status(400).send({ message: "error" });
       //handle error here
     });
 };
