@@ -9,18 +9,48 @@ const TeachingNotes = require("../models/teachingNotes.model.js");
 
 exports.getDayForUser = (req, res) => {
   let uid = req.body.user;
-  let date = req.body.date;
+  let dateStart = new Date(req.body.date);
+  var day = 60 * 60 * 24 * 1000;
+  let dateEnd = new Date(dateStart.getTime() + day);
 
   console.log(req.body);
 
   var promises = [];
-  promises.push(BibleStudy.find({ user: uid, date: date }).lean().exec());
-  promises.push(DailyRoutine.find({ user: uid, date: date }).lean().exec());
-  promises.push(Journal.find({ user: uid, date: date }).lean().exec());
-  promises.push(Thankfulness.find({ user: uid, date: date }).lean().exec());
-  promises.push(Todo.find({ user: uid, date: date }).lean().exec());
-  promises.push(TeachingNotes.find({ user: uid, date: date }).lean().exec());
-  promises.push(Prayer.find({ user: uid, date: date }).lean().exec());
+  promises.push(
+    BibleStudy.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
+  promises.push(
+    DailyRoutine.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
+  promises.push(
+    Journal.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
+  promises.push(
+    Thankfulness.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
+  promises.push(
+    Todo.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
+  promises.push(
+    TeachingNotes.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
+  promises.push(
+    Prayer.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+      .lean()
+      .exec()
+  );
 
   Promise.all(promises)
     .then((results) => {
