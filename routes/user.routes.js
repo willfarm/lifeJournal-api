@@ -29,5 +29,5 @@ module.exports = (app) => {
   // Reset Password
   app.post("/reset/:id", user.reset);
 
-  app.get("/day/:userId", day.getDayForUser);
+  app.post("/day", day.getDayForUser);
 };
