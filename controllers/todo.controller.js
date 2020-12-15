@@ -34,30 +34,14 @@ exports.updateTodo = (req, res) => {
       message: "Todo content can not be empty",
     });
   }
-  let todoId = req.params.todoId
+  let todoId = req.params.todoId;
 
-  Todo.findOneAndUpdate({_id: todoId}, req.body).then((todo) => {
-    return res.status(200).send({message: "success", todo: todo});
-  }).catch((err) => {
-    return res.status(400).send({ message: "can't find todo"});
-  });
-}
-
-
-  let userId = req.body.user;
-  User.findById(userId)
-    .then((user) => {
-      user.todo.push(Todo);
-      user.save();
-      Todo.save().then((data) => {
-        res.send(data);
-      });
+  Todo.findOneAndUpdate({ _id: todoId }, req.body)
+    .then((todo) => {
+      return res.status(200).send({ message: "success", todo: todo });
     })
     .catch((err) => {
-      console.log(err || "no error");
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the User.",
-      });
+      return res.status(400).send({ message: "can't find todo" });
     });
 };
 
@@ -79,5 +63,4 @@ exports.getTodo = (req, res) => {
         message: err,
       });
     });
-
 };
