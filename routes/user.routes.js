@@ -1,5 +1,6 @@
 module.exports = (app) => {
   const user = require("../controllers/user.controller");
+  const day = require("../controllers/day.controller");
 
   // Create a new user
   app.post("/user", user.create);
@@ -27,4 +28,6 @@ module.exports = (app) => {
 
   // Reset Password
   app.post("/reset/:id", user.reset);
+
+  app.get("/day/:userId", day.getDayForUser);
 };
