@@ -38,14 +38,18 @@ exports.updateTodo = (req, res) => {
 
   Todo.findOneAndUpdate({ _id: todoId }, req.body)
     .then((todo) => {
-      return res.status(200).send({ message: "success", todo: todo });
+      if (!todo) {
+        return res.status(400).send({ message: "can't find todo" });
+      } else {
+        return res.status(200).send(todo);
+      }
     })
     .catch((err) => {
       return res.status(400).send({ message: "can't find todo" });
     });
 };
 
-exports.getTodo = (req, res) => {
+exports.getTodos = (req, res) => {
   let uid = req.params.uid;
 
   Todo.find({ user: uid })
