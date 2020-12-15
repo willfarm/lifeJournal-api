@@ -11,6 +11,8 @@ exports.getDayForUser = (req, res) => {
   let uid = req.body.user;
   let date = req.body.date;
 
+  console.log(req.body);
+
   var promises = [];
   promises.push(BibleStudy.find({ user: uid, date: date }).lean().exec());
   promises.push(DailyRoutine.find({ user: uid, date: date }).lean().exec());
