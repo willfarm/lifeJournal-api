@@ -14,9 +14,9 @@ exports.create = (req, res) => {
   let userId = req.body.user;
   User.findById(userId)
     .then((user) => {
-      user.bibleStudy.push(BibleStudy);
+      user.bibleStudy.push(bibleStudy);
       user.save();
-      BibleStudy.save().then((data) => {
+      bibleStudy.save().then((data) => {
         res.send(data);
       });
     })
