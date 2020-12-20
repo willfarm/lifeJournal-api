@@ -22,5 +22,7 @@ require("./routes/thankfulness.routes")(app);
 require("./routes/teachingNotes.routes")(app);
 require("./routes/bibleStudy.routes")(app);
 require("./routes/todo.routes")(app);
+require("./routes/dailyRoutine.routes")(app);
+require("./routes/prayer.routes")(app);
 
 app.listen(process.env.PORT || 3000, () => console.log("server started"));
