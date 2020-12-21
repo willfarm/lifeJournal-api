@@ -5,4 +5,7 @@ module.exports = (app) => {
 
   //get all Bible Study for user
   app.get("/dailyRoutine/:uid", dailyRoutine.getDailyRoutine);
+
+  //update a daily routine
+  app.post("/dailyRoutine/update", dailyRoutine.updateDailyRoutine);
 };

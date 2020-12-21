@@ -28,6 +28,21 @@ exports.create = (req, res) => {
     });
 };
 
+exports.updateDailyRoutine = (req, res) => {
+  let dailyRoutine = req.body;
+  let user = req.body.user;
+  DailyRoutine.findOneAndUpdate({ user: user }, dailyRoutine)
+    .then((dailyRoutine) => {
+      if (!dailyRoutine) {
+        res.status(400).send({ message: "daily routine not found" });
+      }
+      res.send(dailyRoutine);
+    })
+    .catch((err) =>
+      res.status(400).send({ message: "update not completed", error: err })
+    );
+};
+
 exports.getDailyRoutine = (req, res) => {
   let uid = req.params.uid;
 
