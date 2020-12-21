@@ -16,7 +16,7 @@ exports.create = (req, res) => {
     .then((user) => {
       user.todo.push(todo);
       user.save();
-      Todo.save().then((data) => {
+      todo.save().then((data) => {
         res.send(data);
       });
     })
