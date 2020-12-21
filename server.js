@@ -5,7 +5,10 @@ const app = express();
 const mongoose = require("mongoose");
 
 app.use(cors());
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+mongoose.connect(process.env.DB_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+});
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("connected to database"));

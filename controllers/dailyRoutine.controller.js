@@ -31,7 +31,7 @@ exports.create = (req, res) => {
 exports.updateDailyRoutine = (req, res) => {
   let dailyRoutine = req.body;
   let user = req.body.user;
-  DailyRoutine.findOneAndUpdate({ user: user }, dailyRoutine)
+  DailyRoutine.findOneAndUpdate({ user: user }, { $set: dailyRoutine })
     .then((dailyRoutine) => {
       if (!dailyRoutine) {
         res.status(400).send({ message: "daily routine not found" });
