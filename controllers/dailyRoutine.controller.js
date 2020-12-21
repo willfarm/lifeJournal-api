@@ -36,7 +36,9 @@ exports.updateDailyRoutine = (req, res) => {
       if (!dailyRoutine) {
         res.status(400).send({ message: "daily routine not found" });
       }
-      res.send(dailyRoutine);
+      dailyRoutine.save().then((dailyRoutine) => {
+        res.send(dailyRoutine);
+      });
     })
     .catch((err) =>
       res.status(400).send({ message: "update not completed", error: err })
