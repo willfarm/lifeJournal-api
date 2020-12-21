@@ -21,11 +21,7 @@ exports.getDayForUser = (req, res) => {
       .lean()
       .exec()
   );
-  promises.push(
-    DailyRoutine.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
-      .lean()
-      .exec()
-  );
+  promises.push(DailyRoutine.find({ user: uid }).lean().exec());
   promises.push(
     Journal.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
       .lean()
@@ -36,11 +32,7 @@ exports.getDayForUser = (req, res) => {
       .lean()
       .exec()
   );
-  promises.push(
-    Todo.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
-      .lean()
-      .exec()
-  );
+  promises.push(Todo.find({ user: uid }).lean().exec());
   promises.push(
     TeachingNotes.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
       .lean()
