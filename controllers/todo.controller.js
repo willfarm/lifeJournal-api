@@ -14,7 +14,7 @@ exports.create = (req, res) => {
   let userId = req.body.user;
   User.findById(userId)
     .then((user) => {
-      user.todo.push(Todo);
+      user.todo.push(todo);
       user.save();
       Todo.save().then((data) => {
         res.send(data);

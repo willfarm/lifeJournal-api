@@ -9,6 +9,7 @@ const BibleStudy = require("./bibleStudy.model").schema;
 const DailyRoutine = require("./dailyRoutine.model").schema;
 const Prayer = require("./prayer.model").schema;
 const TeachingNotes = require("./teachingNotes.model").schema;
+const Todo = require("./todo.model").schema;
 
 const UserSchema = new mongoose.Schema({
   password: {
@@ -34,6 +35,7 @@ const UserSchema = new mongoose.Schema({
   dailyRoutine: [DailyRoutine],
   prayer: [Prayer],
   teachingNotes: [TeachingNotes],
+  todo: [Todo],
 });
 
 UserSchema.pre("save", function (next) {
