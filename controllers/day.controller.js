@@ -39,10 +39,15 @@ exports.getDayForUser = (req, res) => {
       .exec()
   );
   promises.push(
-    Prayer.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+    Prayer.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd }, isLongForm: true })
       .lean()
       .exec()
   );
+  promises.push(
+    Prayer.find({ user: uid, isLongForm: false })
+      .lean()
+      .exec()
+  )
 
   Promise.all(promises)
     .then((results) => {
@@ -54,6 +59,7 @@ exports.getDayForUser = (req, res) => {
         todo: results[4],
         teachingNotes: results[5],
         prayer: results[6],
+        prayerList: results[7]
       };
       console.log(resultsObject);
 
