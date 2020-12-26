@@ -39,15 +39,10 @@ exports.getDayForUser = (req, res) => {
       .exec()
   );
   promises.push(
-    Prayer.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd }, isLongForm: true })
+    Prayer.find({ user: uid })
       .lean()
       .exec()
   );
-  promises.push(
-    Prayer.find({ user: uid, isLongForm: false })
-      .lean()
-      .exec()
-  )
 
   Promise.all(promises)
     .then((results) => {
@@ -59,15 +54,9 @@ exports.getDayForUser = (req, res) => {
         todo: results[4],
         teachingNotes: results[5],
         prayer: results[6],
-        prayerList: results[7]
       };
       console.log(resultsObject);
-
       return res.status(200).send(resultsObject);
-      // results[0] will have docs of first query
-      // results[1] will have docs of second query
-      // and so on...
-      // you can combine all the results here and send back in response
     })
     .catch((err) => {
       return res.status(400).send({ message: "error" });
