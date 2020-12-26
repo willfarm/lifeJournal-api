@@ -5,5 +5,7 @@ module.exports = (app) => {
 
     //get all prayer for user
     app.get("/prayer/:uid", prayer.getPrayer)
+
+    app.post("/prayer/:prayerId", prayer.updatePrayer)
   };
   

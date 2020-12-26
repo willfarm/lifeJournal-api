@@ -33,6 +33,28 @@ exports.create = (req, res) => {
     });
   };
 
+  exports.updatePrayer = (req, res) => {
+    // Validate request
+    if (!req.body) {
+      return res.status(400).send({
+        message: "Todo content can not be empty",
+      });
+    }
+    let prayerId = req.params.prayerId;
+  
+    Prayer.findOneAndUpdate({ _id: prayerId }, req.body)
+      .then((prayer) => {
+        if (!prayer) {
+          return res.status(400).send({ message: "can't find todo" });
+        } else {
+          return res.status(200).send(todo);
+        }
+      })
+      .catch((err) => {
+        return res.status(400).send({ message: "can't find todo" });
+      });
+  };
+
   exports.getPrayer = (req, res) => {
     let uid = req.params.uid
 

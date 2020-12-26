@@ -12,7 +12,7 @@ const PrayerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  answered: Boolean,
+  done: Boolean,
   isLongForm: Boolean,
 });
 
