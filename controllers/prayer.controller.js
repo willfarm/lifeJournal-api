@@ -41,6 +41,7 @@ exports.create = (req, res) => {
       });
     }
     let prayerId = req.params.prayerId;
+    console.log(prayerId)
   
     Prayer.findOneAndUpdate({ _id: prayerId }, req.body)
       .then((prayer) => {
