@@ -45,14 +45,15 @@ exports.create = (req, res) => {
   
     Prayer.findOneAndUpdate({ _id: prayerId }, req.body)
       .then((prayer) => {
-        if (!prayer) {
-          return res.status(400).send({ message: "can't find todo" });
+        console.log(prayer)
+        if (prayer) {
+          return res.status(200).send(prayer);
         } else {
-          return res.status(200).send(todo);
+          return res.status(400).send({ message: "can't find prayer" });
         }
       })
       .catch((err) => {
-        return res.status(400).send({ message: "can't find todo" });
+        return res.status(400).send({ message: "can't find prayer" });
       });
   };
 
