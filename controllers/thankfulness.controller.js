@@ -33,6 +33,28 @@ exports.create = (req, res) => {
     });
   };
 
+  exports.updateThankfulness = (req, res) => {
+    // Validate request
+    if (!req.body) {
+      return res.status(400).send({
+        message: "thankfulness content can not be empty",
+      });
+    }
+    let thankfulnessId = req.params.thankfulnessId;
+  
+    Thankfulness.findOneAndUpdate({ _id: thankfulnessId }, req.body)
+      .then((thankfulness) => {
+        if (!thankfulness) {
+          return res.status(400).send({ message: "can't find thankfulness" });
+        } else {
+          return res.status(200).send(thankfulness);
+        }
+      })
+      .catch((err) => {
+        return res.status(400).send({ message: "can't find thankfulness" });
+      });
+  };
+
   exports.getThankfulness = (req, res) => {
     let uid = req.params.uid
 

@@ -14,7 +14,7 @@ exports.create = (req, res) => {
   let userId = req.body.user;
   User.findById(userId)
     .then((user) => {
-      user.teachingNotes.push(TeachingNotes);
+      user.teachingNotes.push(teachingNotes);
       user.save();
       teachingNotes.save().then((data) => {
         res.send(data);
@@ -25,6 +25,28 @@ exports.create = (req, res) => {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the User.",
       });
+    });
+};
+
+exports.updateTeachingNotes = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    return res.status(400).send({
+      message: "teachingNotes content can not be empty",
+    });
+  }
+  let teachingNotesId = req.params.teachingNotesId;
+
+  TeachingNotes.findOneAndUpdate({ _id: teachingNotesId }, req.body)
+    .then((teachingNotes) => {
+      if (!teachingNotes) {
+        return res.status(400).send({ message: "can't find teachingNotes" });
+      } else {
+        return res.status(200).send(teachingNotes);
+      }
+    })
+    .catch((err) => {
+      return res.status(400).send({ message: "can't find teachingNotes" });
     });
 };
 

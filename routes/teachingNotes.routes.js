@@ -1,17 +1,13 @@
+const teachingNotesModel = require("../models/teachingNotes.model");
+
 module.exports = (app) => {
   const teachingNotes = require("../controllers/teachingNotes.controller");
-  // Create a new Journal
+  // Create a new TeachingNotes
   app.post("/teachingNotes", teachingNotes.create);
 
   //get all teachingNotes for user
   app.get("/teachingNotes/:uid", teachingNotes.getTeachingNotes);
 
-  // // Retrieve a single journal with journalId
-  // app.get("/journal/:userId", journal.getAllJournalsForUser);
-
-  // // Update a journal with journalId
-  // app.put("/journal/:journalId", journal.update);
-
-  // // Delete a journal with journalId
-  // app.delete("/journal/:journalId", journal.delete);
+   //update Teaching notes
+   app.post("/teachingNotes/:teachingNotesId", teachingNotes.updateTeachingNotes)
 };

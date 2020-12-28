@@ -34,6 +34,27 @@ exports.create = (req, res) => {
      
    
   };
+  exports.updateJournal = (req, res) => {
+    // Validate request
+    if (!req.body) {
+      return res.status(400).send({
+        message: "journal content can not be empty",
+      });
+    }
+    let journalId = req.params.journalId;
+  
+    Journal.findOneAndUpdate({ _id: journalId }, req.body)
+      .then((journal) => {
+        if (!journal) {
+          return res.status(400).send({ message: "can't find journal" });
+        } else {
+          return res.status(200).send(journal);
+        }
+      })
+      .catch((err) => {
+        return res.status(400).send({ message: "can't find journal" });
+      });
+  };
 
   exports.getJournals = (req, res) => {
     let uid = req.params.uid

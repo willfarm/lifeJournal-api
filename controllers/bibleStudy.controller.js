@@ -28,6 +28,28 @@ exports.create = (req, res) => {
     });
 };
 
+exports.updateBibleStudy = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    return res.status(400).send({
+      message: "bibleStudy content can not be empty",
+    });
+  }
+  let bibleStudyId = req.params.bibleStudyId;
+
+  BibleStudy.findOneAndUpdate({ _id: bibleStudyId }, req.body)
+    .then((bibleStudy) => {
+      if (!bibleStudy) {
+        return res.status(400).send({ message: "can't find bibleStudy" });
+      } else {
+        return res.status(200).send(bibleStudy);
+      }
+    })
+    .catch((err) => {
+      return res.status(400).send({ message: "can't find bibleStudy" });
+    });
+};
+
 exports.getBibleStudy = (req, res) => {
   let uid = req.params.uid;
 
