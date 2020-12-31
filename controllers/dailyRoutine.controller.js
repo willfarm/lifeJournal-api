@@ -45,6 +45,16 @@ exports.updateDailyRoutine = (req, res) => {
     );
 };
 
+exports.falseAllDailyRoutines = (req, res) => {
+  let uid = req.params.uid;
+  DailyRoutine.updateMany({user: uid}, {done: false}).then((dailyRoutines) => {
+    console.log(dailyRoutines)
+    res.status(200).send({message: "update completed all false"})
+  }).catch(err => res.status(400).send({message: err}))
+
+  
+}
+
 exports.getDailyRoutine = (req, res) => {
   let uid = req.params.uid;
 

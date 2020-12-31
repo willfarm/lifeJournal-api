@@ -8,4 +8,7 @@ module.exports = (app) => {
 
   //update a daily routine
   app.post("/dailyRoutine/update", dailyRoutine.updateDailyRoutine);
+
+  //update all routines to false
+  app.get("/dailyRoutine/update-all/:uid", dailyRoutine.falseAllDailyRoutines);
 };
