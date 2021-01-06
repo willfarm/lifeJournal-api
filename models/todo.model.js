@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const TodoSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    index: true
   },
   done: {
       type: Boolean,

@@ -4,6 +4,7 @@ const DailyRoutineSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
+    index: true
   },
   done: {
     type: Boolean,

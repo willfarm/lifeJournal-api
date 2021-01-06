@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const ThankfulnessSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    index: true
   },
   date: {
       type: Date,

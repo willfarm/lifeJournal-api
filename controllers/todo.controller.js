@@ -68,3 +68,13 @@ exports.getTodos = (req, res) => {
       });
     });
 };
+
+exports.deleteTodo = (req, res) => {
+  let todoId = req.params.todoId
+
+  Todo.findByIdAndDelete(todoId)
+  .then((todo) => {
+    res.status(200).send({message: "todo deleted"})
+  })
+  .catch(err => res.status(400).send({message: "something went wrong"}))
+}

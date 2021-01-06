@@ -4,6 +4,7 @@ const PrayerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
+    index: true
   },
   date: {
     type: Date,

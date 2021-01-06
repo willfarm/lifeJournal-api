@@ -9,4 +9,7 @@ module.exports = (app) => {
 
   //update Todo
   app.post("/todo/:todoId", todo.updateTodo);
+
+  //delete a todo
+  app.post("todo/delete/:todoId", todo.deleteTodo);
 };
