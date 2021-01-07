@@ -10,9 +10,9 @@ function sendResetLink(email, id) {
   });
 
   let mailOptions = {
-    from: "noreply.eliveheath@gmail.com",
+    from: "noreply@gospelfocused.com",
     to: email,
-    subject: "Elive Forgot Password",
+    subject: "LifeJournal Forgot Password",
     text: `To reset your password, please click on this link: http://elive-web.herokuapp.com/reset/${id}`,
   };
 

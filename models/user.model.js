@@ -41,6 +41,7 @@ const UserSchema = new mongoose.Schema({
     autoRenew: Boolean,
   },
   iapReceipt: String,
+  isLifeTimeUser: Boolean,
   journals: [Journal],
   thankfulness: [Thankfulness],
   bibleStudy: [BibleStudy],
