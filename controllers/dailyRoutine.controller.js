@@ -73,4 +73,14 @@ exports.getDailyRoutine = (req, res) => {
         message: err,
       });
     });
-};
+  }
+
+exports.deleteDailyRoutine = (req, res) => {
+  let routineId = req.params.routineId
+
+  DailyRoutine.findOneAndDelete({_id : routineId})
+  .then((routine) => {
+    res.status(200).send({message : "successfully deleted"})
+  })
+  .catch(err => res.status(400).send(err))
+}

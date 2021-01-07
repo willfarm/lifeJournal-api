@@ -29,6 +29,18 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: Date.now(),
   },
+  freeTrialElegible: {
+    type: Boolean,
+    default: true
+  },
+  expirationDate: {
+    type: Number
+  },
+  subscription: {
+    planId: Number,
+    autoRenew: Boolean,
+  },
+  iapReceipt: String,
   journals: [Journal],
   thankfulness: [Thankfulness],
   bibleStudy: [BibleStudy],
