@@ -1,12 +1,14 @@
 module.exports = (app) => {
-    const prayer = require("../controllers/prayer.controller");
-    // Create a new prayer
-    app.post("/prayer", prayer.create);
+  const prayer = require("../controllers/prayer.controller");
+  // Create a new prayer
+  app.post("/prayer", prayer.create);
 
-    //get all prayer for user
-    app.get("/prayer/:uid", prayer.getPrayer)
+  //get all prayer for user
+  app.get("/prayer/:uid", prayer.getPrayer);
 
-    //update Prayer
-    app.post("/prayer/:prayerId", prayer.updatePrayer)
-  };
-  
+  //update Prayer
+  app.post("/prayer/:prayerId", prayer.updatePrayer);
+
+  //delete a todo
+  app.post("/prayer/delete/:prayerId", prayer.deletePrayer);
+};

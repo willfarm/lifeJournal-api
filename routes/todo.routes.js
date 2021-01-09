@@ -11,5 +11,5 @@ module.exports = (app) => {
   app.post("/todo/:todoId", todo.updateTodo);
 
   //delete a todo
-  app.post("todo/delete/:todoId", todo.deleteTodo);
+  app.post("/todo/delete/:todoId", todo.deleteTodo);
 };
