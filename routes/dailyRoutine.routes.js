@@ -12,5 +12,5 @@ module.exports = (app) => {
   //update all routines to false
   app.get("/dailyRoutine/update-all/:uid", dailyRoutine.falseAllDailyRoutines);
 
-  app.get('/dailyRoutine/delete/:routineId', dailyRoutine.deleteDailyRoutine)
+  app.post("/dailyRoutine/delete/:routineId", dailyRoutine.deleteDailyRoutine);
 };
