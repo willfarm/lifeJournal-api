@@ -31,15 +31,16 @@ const UserSchema = new mongoose.Schema({
   },
   freeTrialElegible: {
     type: Boolean,
-    default: true
+    default: true,
   },
   expirationDate: {
-    type: Number
+    type: Number,
   },
   subscription: {
     planId: Number,
     autoRenew: Boolean,
   },
+  appleToken: String,
   iapReceipt: String,
   isLifeTimeUser: Boolean,
   journals: [Journal],

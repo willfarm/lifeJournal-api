@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js");
 const Reset = require("../models/reset.model.js");
-const tokenService = require('./token');
+const tokenService = require("./token");
 const nodemailer = require("nodemailer");
 const uuidv1 = require("uuidv1");
 
@@ -29,8 +29,7 @@ exports.create = (req, res) => {
     .catch((err) => {
       console.log(err || "no error");
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User.",
+        message: err.message || "Some error occurred while creating the User.",
       });
     });
 };
@@ -43,15 +42,14 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving users.",
+        message: err.message || "Some error occurred while retrieving users.",
       });
     });
 };
 
 exports.auth = (req, res) => {
-  let { email, password } = req.body
-  console.log(req.body)
+  let { email, password } = req.body;
+  console.log(req.body);
   User.findOne({ email: email }, (err, user) => {
     console.log("User Found =======================================");
     if (err) {
@@ -59,47 +57,46 @@ exports.auth = (req, res) => {
       res.json(err);
     }
     if (user) {
-      user.comparePassword(password).then(isMatch => {
+      user.comparePassword(password).then((isMatch) => {
         if (isMatch) {
           res.json(user);
         } else {
           console.log("Credentials wrong");
-        res.status(404).send({
-          message: "Incorrect Credentials",
-        });
+          res.status(404).send({
+            message: "Incorrect Credentials",
+          });
         }
-      })
+      });
     } else {
       let user = new User({
         email,
-        password
+        password,
       });
-      user.save()
-      .then(user => {
-       res.status(200).send({
-         user
-       })
-      })
-      .catch(e => {
-        res.status(400).send({
-          message: "Error Creating user",
-          error: err
+      user
+        .save()
+        .then((user) => {
+          res.status(200).send({
+            user,
+          });
         })
-      });
+        .catch((e) => {
+          res.status(400).send({
+            message: "Error Creating user",
+            error: err,
+          });
+        });
     }
-
-    
   });
 };
 
 exports.authenticateWithApple = (req, res) => {
-  const {token, email, apple_id} = req.body
-  User.findOne({appleId: apple_id}, (err, user) => {
+  const { token, email, apple_id } = req.body;
+  User.findOne({ appleId: apple_id }, (err, user) => {
     if (err) {
       res.status(401).send(err.message);
     } else if (!isEmpty(user)) {
       if (email && email !== user.email) {
-        user.update({email: email})
+        user.update({ email: email });
         user.email = req.body.email;
       }
       res.status(200).send(user);
@@ -109,23 +106,23 @@ exports.authenticateWithApple = (req, res) => {
           res.status(401).send(err.message);
         } else {
           const user = new User({
-            email, apple_id
+            email,
+            apple_id,
+            appleToken: token,
           });
-          // Save User in the database
-          user
-            .save()
-            .then((err, success) => {
-              if (err) {
-                res.status(401).send(err.message);
-              } else {
-                res.status(200).send(registeredUser);
-              }
-            })
+
+          user.save().then((err, success) => {
+            if (err) {
+              res.status(401).send(err.message);
+            } else {
+              res.status(200).send(registeredUser);
+            }
+          });
         }
       });
     }
-  })
-}
+  });
+};
 
 // Find a single user with a userId
 exports.findOne = (req, res) => {
@@ -133,8 +130,7 @@ exports.findOne = (req, res) => {
     .then((user) => {
       if (!user) {
         return res.status(401).send({
-          message:
-            "User not found with userId " + req.params.userId,
+          message: "User not found with userId " + req.params.userId,
         });
       }
       res.send(user);
@@ -142,13 +138,11 @@ exports.findOne = (req, res) => {
     .catch((err) => {
       if (err.kind === "ObjectId") {
         return res.status(404).send({
-          message:
-            "User not found with userId " + req.params.userId,
+          message: "User not found with userId " + req.params.userId,
         });
       }
       return res.status(500).send({
-        message:
-          "Error retrieving user with userId " + req.params.userId,
+        message: "Error retrieving user with userId " + req.params.userId,
       });
     });
 };
@@ -284,8 +278,7 @@ exports.reset = (req, res) => {
               console.log(err || "no error");
               res.status(500).send({
                 message:
-                  err.message ||
-                  "Some error occurred while creating the User.",
+                  err.message || "Some error occurred while creating the User.",
               });
             });
         }
