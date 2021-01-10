@@ -74,7 +74,7 @@ exports.getPrayer = (req, res) => {
 exports.deletePrayer = (req, res) => {
   let prayerId = req.params.prayerId;
 
-  Prayer.findByIdAndDelete(todoId)
+  Prayer.findByIdAndDelete(prayerId)
     .then((todo) => {
       res.status(200).send({ message: "prayer deleted" });
     })
