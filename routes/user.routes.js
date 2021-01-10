@@ -15,7 +15,7 @@ module.exports = (app) => {
   app.post("/user/auth", user.auth);
 
   //user login / signup with Apple
-  app.post("/user/authenticateWithApple", user.authenticateWithApple);
+  app.post("/user/authenticateAppleGoogle", user.authenticateWithAppleGoogle);
 
   // Update a user with userId
   app.put("/user/:userId", user.update);

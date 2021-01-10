@@ -20,10 +20,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  appleId: {
+  uniqueId: {
     type: String,
     required: false,
   },
+  loginType: String,
   lastUpdated: {
     type: Date,
     required: true,

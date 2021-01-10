@@ -89,9 +89,9 @@ exports.auth = (req, res) => {
   });
 };
 
-exports.authenticateWithApple = (req, res) => {
-  const { token, email, apple_id } = req.body;
-  User.findOne({ appleId: apple_id }, (err, user) => {
+exports.authenticateWithAppleGoogle = (req, res) => {
+  const { uniqueId, email, loginType } = req.body;
+  User.findOne({ uniqueId: uniqueId }, (err, user) => {
     if (err) {
       res.status(401).send(err.message);
     } else if (!isEmpty(user)) {
@@ -101,25 +101,37 @@ exports.authenticateWithApple = (req, res) => {
       }
       res.status(200).send(user);
     } else {
-      tokenService.verify(req.body, (err) => {
-        if (err) {
-          res.status(401).send(err.message);
-        } else {
-          const user = new User({
-            email,
-            apple_id,
-            appleToken: token,
-          });
-
-          user.save().then((err, success) => {
-            if (err) {
-              res.status(401).send(err.message);
-            } else {
-              res.status(200).send(registeredUser);
-            }
-          });
-        }
-      });
+      const user = new User({
+        email,
+        uniqueId: uniqueId,
+        loginType: loginType,
+      })
+        .save()
+        .then((err, success) => {
+          if (err) {
+            res.status(401).send(err.message);
+          } else {
+            res.status(200).send(registeredUser);
+          }
+        });
+      // tokenService.verify(req.body, (err) => {
+      //   if (err) {
+      //     res.status(401).send(err.message);
+      //   } else {
+      //     const user = new User({
+      //       email,
+      //       apple_id,
+      //     });
+      //
+      //     user.save().then((err, success) => {
+      //       if (err) {
+      //         res.status(401).send(err.message);
+      //       } else {
+      //         res.status(200).send(registeredUser);
+      //       }
+      //     });
+      //   }
+      // });
     }
   });
 };
