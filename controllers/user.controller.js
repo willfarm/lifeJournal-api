@@ -94,7 +94,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
   User.findOne({ uniqueId: uniqueId }, (err, user) => {
     if (err) {
       res.status(401).send(err.message);
-    } else if (!user) {
+    } else if (user) {
       if (email && email !== user.email) {
         user.update({ email: email });
         user.email = req.body.email;
