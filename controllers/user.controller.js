@@ -91,6 +91,7 @@ exports.auth = (req, res) => {
 
 exports.authenticateWithAppleGoogle = (req, res) => {
   const { uniqueId, email, loginType } = req.body;
+  console.log(req.body);
   User.findOne({ uniqueId: uniqueId }, (err, user) => {
     if (err) {
       res.status(401).send(err.message);
@@ -114,24 +115,6 @@ exports.authenticateWithAppleGoogle = (req, res) => {
             res.status(200).send(registeredUser);
           }
         });
-      // tokenService.verify(req.body, (err) => {
-      //   if (err) {
-      //     res.status(401).send(err.message);
-      //   } else {
-      //     const user = new User({
-      //       email,
-      //       apple_id,
-      //     });
-      //
-      //     user.save().then((err, success) => {
-      //       if (err) {
-      //         res.status(401).send(err.message);
-      //       } else {
-      //         res.status(200).send(registeredUser);
-      //       }
-      //     });
-      //   }
-      // });
     }
   });
 };
