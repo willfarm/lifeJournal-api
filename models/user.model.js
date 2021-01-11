@@ -14,7 +14,7 @@ const Todo = require("./todo.model").schema;
 const UserSchema = new mongoose.Schema({
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
