@@ -110,6 +110,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
       })
         .save()
         .then((err, success) => {
+          console.log(err);
           if (err) {
             res.status(401).send(err.message);
           } else {
