@@ -114,7 +114,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
           if (err) {
             res.status(401).send(err.message);
           } else {
-            res.status(200).send(registeredUser);
+            res.status(200).send(user);
           }
         });
     }
