@@ -109,13 +109,16 @@ exports.authenticateWithAppleGoogle = (req, res) => {
         loginType: loginType,
       })
         .save()
-        .then((err, success) => {
-          console.log(err);
-          if (err) {
-            res.status(401).send(err.message);
-          } else {
-            res.status(200).send(user);
-          }
+        .then((user) => {
+          res.status(200).send({
+            user,
+          });
+        })
+        .catch((e) => {
+          res.status(400).send({
+            message: "Error Creating user",
+            error: err,
+          });
         });
     }
   });
