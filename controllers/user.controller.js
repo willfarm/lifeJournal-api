@@ -93,6 +93,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
   const { uniqueId, email, loginType } = req.body;
   console.log(req.body);
   User.findOne({ uniqueId: uniqueId }, (err, user) => {
+    console.log(err);
     if (err) {
       res.status(401).send(err.message);
     } else if (user) {
