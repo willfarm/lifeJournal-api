@@ -9,7 +9,7 @@ appleReceiptVerify.config({
 });
 
   exports.newSubscription = async (req, res) => {
-    const { uid, iapRecipt } = req.body
+    var { uid, iapRecipt } = req.body
     iapRecipt = iapRecipt.replace('-', '+')
     iapRecipt = iapRecipt.replace('_', '/')
     try {
