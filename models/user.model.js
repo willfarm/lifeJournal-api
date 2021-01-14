@@ -14,16 +14,17 @@ const Todo = require("./todo.model").schema;
 const UserSchema = new mongoose.Schema({
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
     required: false,
   },
-  appleId: {
+  uniqueId: {
     type: String,
     required: false,
   },
+  loginType: String,
   lastUpdated: {
     type: Date,
     required: true,
@@ -31,16 +32,17 @@ const UserSchema = new mongoose.Schema({
   },
   freeTrialElegible: {
     type: Boolean,
-    default: true
+    default: true,
   },
   expirationDate: {
-    type: Number
+    type: Number,
   },
   subscription: {
     planId: Number,
     autoRenew: Boolean,
   },
   subscriptionStatus: String,
+  appleToken: String,
   iapReceipt: String,
   isLifeTimeUser: Boolean,
   journals: [Journal],

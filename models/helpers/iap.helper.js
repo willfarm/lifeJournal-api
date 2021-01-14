@@ -3,10 +3,10 @@ var appleReceiptVerify = require('node-apple-receipt-verify')
 var User = require('../user.model')
 
 appleReceiptVerify.config({
-    secret: process.env.APPLE_SHARED_SECRET,
-    environment: [process.env.APPLE_APP_STORE_ENV],
-    excludeOldTransactions: true,
-  });
+  secret: process.env.APPLE_SHARED_SECRET,
+  environment: [process.env.APPLE_APP_STORE_ENV],
+  excludeOldTransactions: true,
+});
 
   exports.newSubscription = (req, res) => {
     const { uid, iapRecipt } = req.body
