@@ -22,7 +22,6 @@ appleReceiptVerify.config({
         // check if products exist
         if (Array.isArray(products)) {
           console.log(products[0])
-          console.log(iapRecipt)
           // get the latest purchased product (subscription tier)
           let { expirationDate } = products[0];
           // convert ms to secs 
@@ -45,11 +44,14 @@ appleReceiptVerify.config({
 
   }
   exports.renewOrCancelSubscriptions = async _ => {
+    console.log("cron")
       //find users where their subscription expiration date is past now ($lte = less than or equal to)
       User.find({expirationDate: {$lte: moment().unix()}})
       .then((users) => {
         if (users) {
+          
           async function validate(user) {
+            console.log(user)
             try {
               let iapReceipt = user.iapReceipt
               // re-verify receipt to get the latest subscription status
@@ -58,7 +60,8 @@ appleReceiptVerify.config({
               }); 
               // no active transactions (cancelled or expired subscription)
               if(purchases.length === 0) {
-                user.receipt = undefined
+                console.log("no active transations")
+                user.iapReceipt = undefined
                 user.expirationDate = undefined
                 user.freeTrialElegible = false
                 user.subscriptionStatus = "unSubscribed"
@@ -66,6 +69,7 @@ appleReceiptVerify.config({
               }
               // active purchases returned with latest expiry timestamp
               if (purchases.length !== 0) {
+                console.log("active transations")
                 // get the latest purchase from receipt verification
                 const latestPurchase = purchases[0];
                 // reformat the expiration date as a unix timestamp

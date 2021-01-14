@@ -1,8 +1,13 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const cron = require('node-cron');
+
 const app = express();
 const mongoose = require("mongoose");
+
+const iap = require("./models/helpers/iap.helper")
+
 
 app.use(cors());
 mongoose.connect(process.env.DB_URL, {
@@ -28,5 +33,9 @@ require("./routes/todo.routes")(app);
 require("./routes/dailyRoutine.routes")(app);
 require("./routes/prayer.routes")(app);
 require("./routes/iap.routes")(app);
+
+cron.schedule('* * * * *', function() {
+  iap.renewOrCancelSubscriptions()
+});
 
 app.listen(process.env.PORT || 3000, () => console.log("server started"));
