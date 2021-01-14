@@ -27,6 +27,7 @@ appleReceiptVerify.config({
           .then((user) => {
             user.expirationDate = expirationUnix
             user.iapRecipt = iapRecipt
+            user.subscriptionStatus = "subscribed"
           })
           .save()
           .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
