@@ -8,7 +8,7 @@ appleReceiptVerify.config({
   excludeOldTransactions: true,
 });
 
-  exports.newSubscription = (req, res) => {
+  exports.newSubscription = async (req, res) => {
     const { uid, iapRecipt } = req.body
     try {
         // attempt to verify receipt
