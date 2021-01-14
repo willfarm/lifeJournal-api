@@ -12,7 +12,7 @@ appleReceiptVerify.config({
     var { uid, iapRecipt } = req.body
     iapRecipt = iapRecipt.replace(/-/g, '+')
     iapRecipt = iapRecipt.replace(/_/g, '/')
-    console.log(iapRecipt)
+    
     try {
         // attempt to verify receipt
         var products = await appleReceiptVerify.validate({
@@ -21,6 +21,8 @@ appleReceiptVerify.config({
         });
         // check if products exist
         if (Array.isArray(products)) {
+          console.log(products[0])
+          console.log(iapRecipt)
           // get the latest purchased product (subscription tier)
           let { expirationDate } = products[0];
           // convert ms to secs 
@@ -29,15 +31,15 @@ appleReceiptVerify.config({
           User.findById(uid)
           .then((user) => {
             user.expirationDate = expirationUnix
-            user.iapRecipt = iapRecipt
+            user.iapReceipt = iapRecipt
             user.subscriptionStatus = "subscribed"
-          })
-          .save()
-          .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
+            user.save()
+          }).then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
        }
       } catch(e) {
        // transaction receipt is invalid
+       console.log(e)
        res.status(400).send({message: "invalid receipt", error: e})
       }
 
