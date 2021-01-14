@@ -40,6 +40,7 @@ const UserSchema = new mongoose.Schema({
     planId: Number,
     autoRenew: Boolean,
   },
+  subscriptionStatus: String,
   iapReceipt: String,
   isLifeTimeUser: Boolean,
   journals: [Journal],

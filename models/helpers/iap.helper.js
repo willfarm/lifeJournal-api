@@ -1,3 +1,4 @@
+const moment = require('moment');
 var appleReceiptVerify = require('node-apple-receipt-verify')
 var User = require('../user.model')
 
@@ -36,4 +37,49 @@ appleReceiptVerify.config({
        res.status(400).send({message: "invalid receipt", error: e})
       }
 
+  }
+  exports.renewOrCancelSubscriptions = async () => {
+      //find users where their subscription expiration date is past now ($lte = less than or equal to)
+      User.find({expirationDate: {$lte: moment().unix()}})
+      .then((users) => {
+        if (users) {
+          for (let user of users) {
+            let iapReceipt = user.iapReceipt
+            // re-verify receipt to get the latest subscription status
+            const purchases = await appleReceiptVerify.validate({
+              receipt: iapReceipt
+            }); 
+            // no active transactions (cancelled or expired subscription)
+            if(purchases.length === 0) {
+              user.receipt = undefined
+              user.expirationDate = undefined
+              user.freeTrialElegible = false
+              user.subscriptionStatus = "unSubscribed"
+              user.save()
+            }
+            // active purchases returned with latest expiry timestamp
+            if (purchases.length !== 0) {
+              // get the latest purchase from receipt verification
+              const latestPurchase = purchases[0];
+              // reformat the expiration date as a unix timestamp
+              let latestExpiryTimestamp = latestPurchase.expirationDate;
+              let productId = latestPurchase.productId;
+              latestExpiryTimestamp = Math.round(latestExpiryTimestamp / 1000);
+              user.expirationDate = latestExpiryTimestamp
+              user.iapReceipt = latestPurchase.receipt
+              user.save()
+            }
+          }
+        }
+      })
+      .catch( e => console.log(e))
+  },
+
+  // define service loop and initiate service
+  exports.init = async (client) => {
+    module.exports.renewOrCancelSubscriptions(client);
+
+    setInterval(async function () {
+      module.exports.renewOrCancelSubscriptions(client);
+    }, interval)
   }

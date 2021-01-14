@@ -61,7 +61,7 @@ exports.auth = (req, res) => {
     if (user) {
       user.comparePassword(password).then(isMatch => {
         if (isMatch) {
-          res.json(user);
+          res.status(200).send(user);
         } else {
           console.log("Credentials wrong");
         res.status(404).send({
@@ -76,9 +76,7 @@ exports.auth = (req, res) => {
       });
       user.save()
       .then(user => {
-       res.status(200).send({
-         user
-       })
+       res.status(200).send(user)
       })
       .catch(e => {
         res.status(400).send({
