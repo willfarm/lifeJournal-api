@@ -12,6 +12,7 @@ appleReceiptVerify.config({
     var { uid, iapRecipt } = req.body
     iapRecipt = iapRecipt.replace('-', '+')
     iapRecipt = iapRecipt.replace('_', '/')
+    console.log(iapRecipt)
     try {
         // attempt to verify receipt
         var products = await appleReceiptVerify.validate({
