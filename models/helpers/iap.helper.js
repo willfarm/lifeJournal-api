@@ -27,15 +27,10 @@ appleReceiptVerify.config({
           // convert ms to secs 
           let expirationUnix = Math.round(expirationDate / 1000);
           // persist in database
-          User.findById(uid)
-          .then((user) => {
-            console.log("user update")
-            user.expirationDate = expirationUnix
-            user.iapReceipt = iapRecipt
-            user.subscriptionStatus = "subscribed"
-            
-          })
-          .save()
+          User.findByIdAndUpdate(uid, 
+            {$set : {expirationDate = expirationUnix,
+            iapReceipt = iapRecipt,
+            subscriptionStatus = "subscribed"}})
           .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
        }
