@@ -33,8 +33,10 @@ appleReceiptVerify.config({
             user.expirationDate = expirationUnix
             user.iapReceipt = iapRecipt
             user.subscriptionStatus = "subscribed"
-            await user.save()
-          }).then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
+            
+          })
+          .save()
+          .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
        }
       } catch(e) {
