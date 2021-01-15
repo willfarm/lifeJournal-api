@@ -29,6 +29,7 @@ appleReceiptVerify.config({
           // persist in database
           User.findById(uid)
           .then((user) => {
+            console.log("user update")
             user.expirationDate = expirationUnix
             user.iapReceipt = iapRecipt
             user.subscriptionStatus = "subscribed"
