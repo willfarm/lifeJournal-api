@@ -43,6 +43,11 @@ exports.getDayForUser = (req, res) => {
       .lean()
       .exec()
   );
+  promises.push(
+    User.findById(uid).select("subscriptionStatus")
+      .lean()
+      .exec()
+  )
 
   Promise.all(promises)
     .then((results) => {
@@ -54,6 +59,7 @@ exports.getDayForUser = (req, res) => {
         todo: results[4],
         teachingNotes: results[5],
         prayer: results[6],
+        user: results[7]
       };
       console.log(resultsObject);
       return res.status(200).send(resultsObject);
