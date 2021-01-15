@@ -28,7 +28,7 @@ appleReceiptVerify.config({
           let expirationUnix = Math.round(expirationDate / 1000);
           // persist in database
           User.findByIdAndUpdate(uid, 
-            {$set : {expirationDate = expirationUnix,
+            {$set : {iapExpirationDate = expirationUnix,
             iapReceipt = iapRecipt,
             subscriptionStatus = "subscribed"}})
           .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
@@ -60,7 +60,7 @@ appleReceiptVerify.config({
               if(purchases.length === 0) {
                 console.log("no active transations")
                 user.iapReceipt = undefined
-                user.expirationDate = undefined
+                user.iapExpirationDate = undefined
                 user.freeTrialElegible = false
                 user.subscriptionStatus = "unSubscribed"
                 user.save()

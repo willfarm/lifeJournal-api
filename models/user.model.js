@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  expirationDate: {
+  iapExpirationDate: {
     type: Number,
   },
   subscription: {
