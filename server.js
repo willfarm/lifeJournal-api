@@ -33,6 +33,7 @@ require("./routes/todo.routes")(app);
 require("./routes/dailyRoutine.routes")(app);
 require("./routes/prayer.routes")(app);
 require("./routes/iap.routes")(app);
+require("./routes/blog.routes")(app);
 
 cron.schedule('* 12 * * *', function() {
   iap.renewOrCancelSubscriptions()
