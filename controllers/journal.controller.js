@@ -65,7 +65,7 @@ exports.create = (req, res) => {
           message: "No Journals Found"
         })
       }
-      return res.status(200).send(journals)
+      return res.status(200).send(journals.reverse())
     }).catch((err) => {
       console.log(err)
       return res.status(400).send({
