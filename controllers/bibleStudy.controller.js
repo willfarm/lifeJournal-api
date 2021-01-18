@@ -60,7 +60,7 @@ exports.getBibleStudy = (req, res) => {
           message: "No BibleStudys Found",
         });
       }
-      return res.status(200).send(bibleStudies);
+      return res.status(200).send(bibleStudies.reverse());
     })
     .catch((err) => {
       console.log(err);

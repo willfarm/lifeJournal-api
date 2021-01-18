@@ -60,7 +60,7 @@ exports.getTeachingNotes = (req, res) => {
           message: "No TeachingNotess Found",
         });
       }
-      return res.status(200).send(TeachingNotess);
+      return res.status(200).send(TeachingNotess.reverse());
     })
     .catch((err) => {
       console.log(err);

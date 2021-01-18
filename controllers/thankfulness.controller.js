@@ -64,7 +64,7 @@ exports.create = (req, res) => {
           message: "No Thankfulness Found"
         })
       }
-      return res.status(200).send(thankfulnesss)
+      return res.status(200).send(thankfulnesss.reverse())
     }).catch((err) => {
       console.log(err)
       return res.status(400).send({

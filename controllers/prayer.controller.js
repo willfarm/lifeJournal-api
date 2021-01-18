@@ -62,7 +62,7 @@ exports.getPrayer = (req, res) => {
           message: "No Prayer Found",
         });
       }
-      return res.status(200).send(prayers);
+      return res.status(200).send(prayers.reverse());
     })
     .catch((err) => {
       console.log(err);
