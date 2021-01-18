@@ -1,5 +1,6 @@
 const User = require("../models/user.model.js");
 const DailyRoutine = require("../models/dailyRoutine.model.js");
+const Prayer = require("../models/prayer.model.js");
 
 exports.create = (req, res) => {
   // Validate request
@@ -47,10 +48,23 @@ exports.updateDailyRoutine = (req, res) => {
 
 exports.falseAllDailyRoutines = (req, res) => {
   let uid = req.params.uid;
-  DailyRoutine.updateMany({user: uid}, {done: false}).then((dailyRoutines) => {
-    console.log(dailyRoutines)
+  var promises = [];
+  promises.push(
+    Prayer.updateMany({user: uid}, {done: false})
+      .lean()
+      .exec()
+  );
+  promises.push(
+    DailyRoutine.updateMany({user: uid}, {done: false})
+      .lean()
+      .exec()
+  );
+  
+  Promise.all(promises)
+  .then((results) => {
     res.status(200).send({message: "update completed all false"})
-  }).catch(err => res.status(400).send({message: err}))
+  })
+  .catch(err => res.status(400).send({message: err}))
 
   
 }
