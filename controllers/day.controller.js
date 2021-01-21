@@ -44,7 +44,7 @@ exports.getDayForUser = (req, res) => {
       .exec()
   );
   promises.push(
-    User.findById(uid).select("subscriptionStatu isLifeTimeUser")
+    User.findById(uid).select("subscriptionStatus")
       .lean()
       .exec()
   )
