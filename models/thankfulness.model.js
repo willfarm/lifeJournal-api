@@ -7,9 +7,8 @@ const ThankfulnessSchema = new mongoose.Schema({
     index: true
   },
   date: {
-      type: Date,
+      type: String,
       required: true,
-      default: Date()
   },
   thankfulnessText: {
       type: String,

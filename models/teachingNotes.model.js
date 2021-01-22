@@ -7,9 +7,8 @@ const TeachingNotesSchema = new mongoose.Schema({
     index: true
   },
   date: {
-      type: Date,
+      type: String,
       required: true,
-      default: Date()
   },
   teachingNotesText: {
       type: String,

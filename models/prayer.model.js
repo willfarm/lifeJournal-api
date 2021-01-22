@@ -7,7 +7,7 @@ const PrayerSchema = new mongoose.Schema({
     index: true
   },
   date: {
-    type: Date,
+    type: String,
   },
   prayerText: {
     type: String,

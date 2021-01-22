@@ -7,9 +7,8 @@ const BibleStudySchema = new mongoose.Schema({
     index: true
   },
   date: {
-      type: Date,
+      type: String,
       required: true,
-      default: Date()
   },
   book: String,
   chapter: String,

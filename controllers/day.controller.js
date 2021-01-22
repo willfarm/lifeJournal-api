@@ -9,40 +9,35 @@ const TeachingNotes = require("../models/teachingNotes.model.js");
 
 exports.getDayForUser = (req, res) => {
   let uid = req.body.user;
-  let dateStart = new Date(req.body.date);
-  var day = 60 * 60 * 24 * 1000;
-  let dateEnd = new Date(dateStart.getTime() + day);
+  let date = req.body.date;
+ 
 
   console.log(req.body);
 
   var promises = [];
   promises.push(
-    BibleStudy.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+    BibleStudy.find({ user: uid, date: date })
       .lean()
       .exec()
   );
   promises.push(DailyRoutine.find({ user: uid }).lean().exec());
   promises.push(
-    Journal.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+    Journal.find({ user: uid, date: date })
       .lean()
       .exec()
   );
   promises.push(
-    Thankfulness.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+    Thankfulness.find({ user: uid, date: date })
       .lean()
       .exec()
   );
   promises.push(Todo.find({ user: uid }).lean().exec());
   promises.push(
-    TeachingNotes.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd } })
+    TeachingNotes.find({ user: uid, date: date })
       .lean()
       .exec()
   );
-  // promises.push(
-  //   Prayer.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd }, isLongForm: true })
-  //     .lean()
-  //     .exec()
-  // );
+  
   promises.push(
     Prayer.find({ user: uid })
       .lean()
@@ -57,16 +52,10 @@ exports.getDayForUser = (req, res) => {
   Promise.all(promises)
     .then((results) => {
       
-      // let todoPrayers = results[6].filter(prayer => prayer.isLongForm === false)
-      // let todaysPrayer = results[6].filter(prayer => {
-      //   console.log(prayer.date.toDateString())
-      //   prayer.isLongForm === true && prayer.date.toDateString() === dateStart.toDateString() 
-      // }) 
-      // let prayers = todoPrayers + todaysPrayer
-      // console.log(results[7])
-      // var prayers = results[6]
-      // prayers.concat(results[7])
-      console.log(results)
+      let todoPrayers = results[6].filter(prayer => prayer.isLongForm === false)
+      let todaysPrayer = results[6].filter(prayer => (prayer.isLongForm === true && prayer.date == date)) 
+      let prayers = todoPrayers.concat(todaysPrayer) 
+      console.log(todaysPrayer)
       let resultsObject = {
         bibleStudy: results[0],
         dailyRoutine: results[1],
@@ -74,13 +63,13 @@ exports.getDayForUser = (req, res) => {
         thankfulness: results[3],
         todo: results[4],
         teachingNotes: results[5],
-        prayer: results[6],
+        prayer: prayers,
         user: results[7]
       };
       return res.status(200).send(resultsObject);
     })
-    .catch((err) => {
-      return res.status(400).send({ message: "error", err: err });
+    .catch((error) => {
+      return res.status(400).send({ message: "error", err: error });
       //handle error here
     });
 };

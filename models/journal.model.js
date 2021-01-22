@@ -11,9 +11,8 @@ const JournalSchema = new mongoose.Schema({
     required: false,
   },
   date: {
-      type: Date,
+      type: String,
       required: true,
-      default: Date()
   },
   journalText: {
       type: String,
