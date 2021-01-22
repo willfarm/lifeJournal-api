@@ -66,6 +66,7 @@ exports.getDayForUser = (req, res) => {
       // console.log(results[7])
       // var prayers = results[6]
       // prayers.concat(results[7])
+      console.log(results)
       let resultsObject = {
         bibleStudy: results[0],
         dailyRoutine: results[1],
