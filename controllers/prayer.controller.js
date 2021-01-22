@@ -8,6 +8,8 @@ exports.create = (req, res) => {
       message: "Prayer content can not be empty",
     });
   }
+
+  console.log(req.body)
   // Create a prayer
   const prayer = new Prayer(req.body);
   let userId = req.body.user;

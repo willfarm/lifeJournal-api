@@ -56,6 +56,13 @@ exports.getDayForUser = (req, res) => {
 
   Promise.all(promises)
     .then((results) => {
+      
+      // let todoPrayers = results[6].filter(prayer => prayer.isLongForm === false)
+      // let todaysPrayer = results[6].filter(prayer => {
+      //   console.log(prayer.date.toDateString())
+      //   prayer.isLongForm === true && prayer.date.toDateString() === dateStart.toDateString() 
+      // }) 
+      // let prayers = todoPrayers + todaysPrayer
       // console.log(results[7])
       // var prayers = results[6]
       // prayers.concat(results[7])
