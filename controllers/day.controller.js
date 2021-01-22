@@ -38,6 +38,11 @@ exports.getDayForUser = (req, res) => {
       .lean()
       .exec()
   );
+  // promises.push(
+  //   Prayer.find({ user: uid, date: { $gte: dateStart, $lt: dateEnd }, isLongForm: true })
+  //     .lean()
+  //     .exec()
+  // );
   promises.push(
     Prayer.find({ user: uid })
       .lean()
@@ -51,6 +56,9 @@ exports.getDayForUser = (req, res) => {
 
   Promise.all(promises)
     .then((results) => {
+      // console.log(results[7])
+      // var prayers = results[6]
+      // prayers.concat(results[7])
       let resultsObject = {
         bibleStudy: results[0],
         dailyRoutine: results[1],
@@ -61,11 +69,11 @@ exports.getDayForUser = (req, res) => {
         prayer: results[6],
         user: results[7]
       };
-      console.log(resultsObject);
       return res.status(200).send(resultsObject);
     })
     .catch((err) => {
-      return res.status(400).send({ message: "error" });
+      return res.status(400).send({ message: "error", err: err });
       //handle error here
     });
 };
+
