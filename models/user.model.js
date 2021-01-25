@@ -41,7 +41,10 @@ const UserSchema = new mongoose.Schema({
     planId: Number,
     autoRenew: Boolean,
   },
-  subscriptionStatus: String,
+  subscriptionStatus: {
+    type: String,
+    default: "unSubscribed",
+  },
   appleToken: String,
   iapReceipt: String,
   isLifeTimeUser: Boolean,
