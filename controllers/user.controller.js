@@ -77,6 +77,7 @@ exports.auth = (req, res) => {
         user : user._id,
         todoText : "Get Started On My LifeJournal"
       })
+      todo.save()
       user
         .save()
         .then((user) => {
@@ -116,7 +117,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
         todoText : "Get Started On My LifeJournal"
       })
       todo.save()
-        .save()
+        user.save()
         .then((user) => {
           res.status(200).send({
             user,
