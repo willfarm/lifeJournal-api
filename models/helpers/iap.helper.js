@@ -27,7 +27,7 @@ appleReceiptVerify.config({
           // convert ms to secs 
           let expirationUnix = Math.round(expirationDate / 1000);
 
-          var u = User.findOneAndUpdate({_id : user}, 
+          var u = await User.findOneAndUpdate({_id : user}, 
             {iapExpirationDate : expirationUnix,
             iapReceipt : iapRecipt,
             subscriptionStatus : "subscribed"})
