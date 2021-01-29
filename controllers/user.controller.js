@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js");
+const Todo = require("../models/todo.model")
 const Reset = require("../models/reset.model.js");
 const tokenService = require("./token");
 const nodemailer = require("nodemailer");
@@ -72,6 +73,11 @@ exports.auth = (req, res) => {
         email,
         password,
       });
+      let todo = new Todo({
+        user : user._id,
+        todoText : "Get Started On My LifeJournal"
+      })
+      todo.save()
       user
         .save()
         .then((user) => {
@@ -106,6 +112,11 @@ exports.authenticateWithAppleGoogle = (req, res) => {
         uniqueId: uniqueId,
         loginType: loginType,
       })
+      let todo = new Todo({
+        user : user._id,
+        todoText : "Get Started On My LifeJournal"
+      })
+      todo.save()
         .save()
         .then((user) => {
           res.status(200).send({
