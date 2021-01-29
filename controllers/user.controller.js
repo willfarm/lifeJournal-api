@@ -81,6 +81,7 @@ exports.auth = (req, res) => {
       user
         .save()
         .then((user) => {
+          console.log(user)
           res.status(200).send( user );
         })
         .catch((e) => {
@@ -119,9 +120,8 @@ exports.authenticateWithAppleGoogle = (req, res) => {
       todo.save()
         user.save()
         .then((user) => {
-          res.status(200).send({
-            user,
-          });
+          console.log(user)
+          res.status(200).send(user);
         })
         .catch((e) => {
           res.status(400).send({
