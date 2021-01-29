@@ -77,7 +77,6 @@ exports.auth = (req, res) => {
         user : user._id,
         todoText : "Get Started On My LifeJournal"
       })
-      todo.save()
       user
         .save()
         .then((user) => {
