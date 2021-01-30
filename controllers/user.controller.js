@@ -1,5 +1,9 @@
 const User = require("../models/user.model.js");
 const Todo = require("../models/todo.model")
+const Journal = require("../models/journal.model")
+const Thankfulness = require("../models/thankfulness.model")
+const Prayer = require("../models/prayer.model")
+const DailyRoutine = require("../models/dailyRoutine.model")
 const Reset = require("../models/reset.model.js");
 const tokenService = require("./token");
 const nodemailer = require("nodemailer");
@@ -49,7 +53,15 @@ exports.findAll = (req, res) => {
 };
 
 exports.auth = (req, res) => {
-  let { email, password } = req.body;
+  var { email, password, date } = req.body;
+  if (date == null) {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    date = yyyy+'-'+mm+'-'+dd;
+  }
   console.log(req.body);
   User.findOne({ email: email }, (err, user) => {
     console.log("User Found =======================================");
@@ -73,11 +85,93 @@ exports.auth = (req, res) => {
         email,
         password,
       });
-      let todo = new Todo({
+      let todo1 = new Todo({
         user : user._id,
-        todoText : "Get Started On My LifeJournal"
+        todoText : "👈 Create My Daily Routines"
       })
-      todo.save()
+      let todo2 = new Todo({
+        user : user._id,
+        todoText : `👈 Text "Start!" to (512) 675-1621`
+      })
+      let todo3 = new Todo({
+        user : user._id,
+        todoText : "👈 Add Some Prayers"
+      })
+      
+      let journal = new Journal({
+        user: user._id,
+        journalText: "✍️ Journal",
+        date: date
+      })
+
+      let thankfulness = new Thankfulness({
+        user: user._id,
+        thankfulnessText: "❤️ Write Thankfulness",
+        date: date
+      })
+      let dailyRoutine = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "🍽 Dinner",
+        night: true
+      })
+      let dailyRoutine1 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "🎶 Family Worship",
+        night: true
+      })
+      let dailyRoutine2 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "📚 Read",
+        night: true
+      })
+
+      let dailyRoutine3 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "💧 Drink Water"
+      })
+      let dailyRoutine4 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "💪 Exercise"
+      })
+      let dailyRoutine5 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "💰 Update Budget"
+      })
+
+      let prayer = new Prayer({
+        user: user._id,
+        prayerText: "⛪️ My Church",
+        isLongForm: false
+      })
+      let prayer1 = new Prayer({
+        user: user._id,
+        prayerText: "🏡 My Neighbors",
+        isLongForm: false
+      })
+      let prayer2 = new Prayer({
+        user: user._id,
+        prayerText: "🌍 The Nations",
+        isLongForm: false
+      })
+
+      journal.save()
+      thankfulness.save()
+
+      todo1.save()
+      todo2.save()
+      todo3.save()
+      
+      dailyRoutine.save()
+      dailyRoutine1.save()
+      dailyRoutine2.save()
+      dailyRoutine3.save()
+      dailyRoutine4.save()
+      dailyRoutine5.save()
+
+      prayer.save()
+      prayer1.save()
+      prayer2.save()
+
       user
         .save()
         .then((user) => {
@@ -95,7 +189,15 @@ exports.auth = (req, res) => {
 };
 
 exports.authenticateWithAppleGoogle = (req, res) => {
-  const { uniqueId, email, loginType } = req.body;
+  var { uniqueId, email, loginType, date } = req.body;
+  if (date == null) {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    date = yyyy+'-'+mm+'-'+dd;
+  }
   console.log(req.body);
   User.findOne({ uniqueId: uniqueId }, (err, user) => {
     console.log(err);
@@ -113,11 +215,92 @@ exports.authenticateWithAppleGoogle = (req, res) => {
         uniqueId: uniqueId,
         loginType: loginType,
       })
-      let todo = new Todo({
+      let todo1 = new Todo({
         user : user._id,
-        todoText : "Get Started On My LifeJournal"
+        todoText : "👈 Create My Daily Routines"
       })
-      todo.save()
+      let todo2 = new Todo({
+        user : user._id,
+        todoText : `👈 Text "Start!" to (512) 675-1621`
+      })
+      let todo3 = new Todo({
+        user : user._id,
+        todoText : "👈 Add Some Prayers"
+      })
+      
+      let journal = new Journal({
+        user: user._id,
+        journalText: "✍️ Journal",
+        date: date
+      })
+
+      let thankfulness = new Thankfulness({
+        user: user._id,
+        thankfulnessText: "❤️ Write Thankfulness",
+        date: date
+      })
+      let dailyRoutine = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "🍽 Dinner",
+        night: true
+      })
+      let dailyRoutine1 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "🎶 Family Worship",
+        night: true
+      })
+      let dailyRoutine2 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "📚 Read",
+        night: true
+      })
+
+      let dailyRoutine3 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "💧 Drink Water"
+      })
+      let dailyRoutine4 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "💪 Exercise"
+      })
+      let dailyRoutine5 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "💰 Update Budget"
+      })
+
+      let prayer = new Prayer({
+        user: user._id,
+        prayerText: "⛪️ My Church",
+        isLongForm: false
+      })
+      let prayer1 = new Prayer({
+        user: user._id,
+        prayerText: "🏡 My Neighbors",
+        isLongForm: false
+      })
+      let prayer2 = new Prayer({
+        user: user._id,
+        prayerText: "🌍 The Nations",
+        isLongForm: false
+      })
+
+      journal.save()
+      thankfulness.save()
+
+      todo1.save()
+      todo2.save()
+      todo3.save()
+      
+      dailyRoutine.save()
+      dailyRoutine1.save()
+      dailyRoutine2.save()
+      dailyRoutine3.save()
+      dailyRoutine4.save()
+      dailyRoutine5.save()
+
+      prayer.save()
+      prayer1.save()
+      prayer2.save()
         user.save()
         .then((user) => {
           console.log(user)
