@@ -87,27 +87,46 @@ exports.auth = (req, res) => {
       });
       let todo1 = new Todo({
         user : user._id,
-        todoText : "👈 Create My Daily Routines"
+        todoText : "👉 Create My Daily Routines"
       })
       let todo2 = new Todo({
         user : user._id,
-        todoText : `👈 Text "Start!" to (512) 675-1621`
+        todoText : `👉 Text "Start!" to (512) 675-1621`
       })
       let todo3 = new Todo({
         user : user._id,
-        todoText : "👈 Add Some Prayers"
+        todoText : "👉 Add Some Prayers"
       })
       
       let journal = new Journal({
         user: user._id,
-        journalText: "✍️ Journal",
+        journalText: "My first journal 🏆",
         date: date
       })
-
       let thankfulness = new Thankfulness({
         user: user._id,
-        thankfulnessText: "❤️ Write Thankfulness",
+        thankfulnessText: "I am thankful for starting my LifeJournal 😊",
         date: date
+      })
+      let morningRoutine1 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "✍️ journal",
+        morning: true
+      })
+      let morningRoutine2 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "🙏 Spend Time in Prayer",
+        morning: true
+      })
+      let morningRoutine3 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "📖 Bible Study",
+        morning: true
+      })
+      let morningRoutine4 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "❤️ Write Thankfulness",
+        morning: true
       })
       let dailyRoutine = new DailyRoutine({
         user: user._id,
@@ -164,14 +183,18 @@ exports.auth = (req, res) => {
       dailyRoutine.save()
       dailyRoutine1.save()
       dailyRoutine2.save()
-      dailyRoutine3.save()
-      dailyRoutine4.save()
       dailyRoutine5.save()
+      dailyRoutine4.save()
+      dailyRoutine3.save()
+
+      morningRoutine1.save()
+      morningRoutine2.save()
+      morningRoutine3.save()
+      morningRoutine4.save()
 
       prayer.save()
       prayer1.save()
       prayer2.save()
-
       user
         .save()
         .then((user) => {
@@ -217,27 +240,46 @@ exports.authenticateWithAppleGoogle = (req, res) => {
       })
       let todo1 = new Todo({
         user : user._id,
-        todoText : "👈 Create My Daily Routines"
+        todoText : "👉 Create My Daily Routines"
       })
       let todo2 = new Todo({
         user : user._id,
-        todoText : `👈 Text "Start!" to (512) 675-1621`
+        todoText : `👉 Text "Start!" to (512) 675-1621`
       })
       let todo3 = new Todo({
         user : user._id,
-        todoText : "👈 Add Some Prayers"
+        todoText : "👉 Add Some Prayers"
       })
       
       let journal = new Journal({
         user: user._id,
-        journalText: "✍️ Journal",
+        journalText: "My first journal 🏆",
         date: date
       })
-
       let thankfulness = new Thankfulness({
         user: user._id,
-        thankfulnessText: "❤️ Write Thankfulness",
+        thankfulnessText: "I am thankful for starting my LifeJournal 😊",
         date: date
+      })
+      let morningRoutine1 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "✍️ journal",
+        morning: true
+      })
+      let morningRoutine2 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "🙏 Spend Time in Prayer",
+        morning: true
+      })
+      let morningRoutine3 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "📖 Bible Study",
+        morning: true
+      })
+      let morningRoutine4 = new DailyRoutine({
+        user: user._id,
+        dailyRoutineText: "❤️ Write Thankfulness",
+        morning: true
       })
       let dailyRoutine = new DailyRoutine({
         user: user._id,
@@ -294,9 +336,14 @@ exports.authenticateWithAppleGoogle = (req, res) => {
       dailyRoutine.save()
       dailyRoutine1.save()
       dailyRoutine2.save()
-      dailyRoutine3.save()
-      dailyRoutine4.save()
       dailyRoutine5.save()
+      dailyRoutine4.save()
+      dailyRoutine3.save()
+
+      morningRoutine1.save()
+      morningRoutine2.save()
+      morningRoutine3.save()
+      morningRoutine4.save()
 
       prayer.save()
       prayer1.save()
