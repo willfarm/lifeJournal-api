@@ -146,15 +146,21 @@ exports.auth = (req, res) => {
 
       let dailyRoutine3 = new DailyRoutine({
         user: user._id,
-        dailyRoutineText: "💧 Drink Water"
+        dailyRoutineText: "💧 Drink Water",
+        night: false,
+        morning: false
       })
       let dailyRoutine4 = new DailyRoutine({
         user: user._id,
-        dailyRoutineText: "💪 Exercise"
+        dailyRoutineText: "💪 Exercise",
+        night: false,
+        morning: false
       })
       let dailyRoutine5 = new DailyRoutine({
         user: user._id,
-        dailyRoutineText: "💰 Update Budget"
+        dailyRoutineText: "💰 Update Budget",
+        night: false,
+        morning: false
       })
 
       let prayer = new Prayer({
