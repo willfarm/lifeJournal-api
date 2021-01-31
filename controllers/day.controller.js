@@ -10,9 +10,6 @@ const TeachingNotes = require("../models/teachingNotes.model.js");
 exports.getDayForUser = (req, res) => {
   let uid = req.body.user;
   let date = req.body.date;
- 
-
-  console.log(req.body);
 
   var promises = [];
   promises.push(
@@ -54,7 +51,6 @@ exports.getDayForUser = (req, res) => {
       let todoPrayers = results[6].filter(prayer => prayer.isLongForm === false)
       let todaysPrayer = results[6].filter(prayer => (prayer.isLongForm === true && prayer.date == date)) 
       let prayers = todoPrayers.concat(todaysPrayer) 
-      console.log(results)
       let resultsObject = {
         bibleStudy: results[0],
         dailyRoutine: results[1],
