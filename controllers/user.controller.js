@@ -100,7 +100,7 @@ exports.auth = (req, res) => {
       
       let journal = new Journal({
         user: user._id,
-        journalText: "My first journal 🏆",
+        journalText: "My first Journal 🏆",
         date: date
       })
       let thankfulness = new Thankfulness({
@@ -110,7 +110,7 @@ exports.auth = (req, res) => {
       })
       let morningRoutine1 = new DailyRoutine({
         user: user._id,
-        dailyRoutineText: "✍️ journal",
+        dailyRoutineText: "✍️ Journal",
         morning: true
       })
       let morningRoutine2 = new DailyRoutine({
