@@ -62,7 +62,7 @@ exports.auth = (req, res) => {
     var yyyy = today.getFullYear();
     date = yyyy+'-'+mm+'-'+dd;
   }
-  console.log(req.body);
+  
   User.findOne({ email: email }, (err, user) => {
     console.log("User Found =======================================");
     if (err) {
@@ -204,6 +204,7 @@ exports.auth = (req, res) => {
       user
         .save()
         .then((user) => {
+          console.log("new email user")
           console.log(user)
           res.status(200).send( user );
         })
@@ -229,7 +230,6 @@ exports.authenticateWithAppleGoogle = (req, res) => {
   }
   console.log(req.body);
   User.findOne({ uniqueId: uniqueId }, (err, user) => {
-    console.log(err);
     if (err) {
       res.status(401).send(err.message);
     } else if (user) {
@@ -356,6 +356,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
       prayer2.save()
         user.save()
         .then((user) => {
+          console.log("new apple/google user")
           console.log(user)
           res.status(200).send(user);
         })
