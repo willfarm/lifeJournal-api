@@ -256,6 +256,10 @@ exports.authenticateWithAppleGoogle = (req, res) => {
         user : user._id,
         todoText : "👉 Add Some Prayers"
       })
+      let todo4 = new Todo({
+        user : user._id,
+        todoText : "🚫 Delete This by Swiping Left "
+      })
       
       let journal = new Journal({
         user: user._id,
@@ -338,6 +342,7 @@ exports.authenticateWithAppleGoogle = (req, res) => {
       todo1.save()
       todo2.save()
       todo3.save()
+      todo4.save()
       
       dailyRoutine.save()
       dailyRoutine1.save()
