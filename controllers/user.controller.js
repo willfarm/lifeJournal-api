@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js");
+const Group = require("../models/group.model")
 const Todo = require("../models/todo.model")
 const Journal = require("../models/journal.model")
 const Thankfulness = require("../models/thankfulness.model")
@@ -53,7 +54,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.auth = (req, res) => {
-  var { email, password, date } = req.body;
+  var { email, password, date, groupCode } = req.body;
   if (date == null) {
     var today = new Date();
     var dd = today.getDate();
@@ -85,6 +86,22 @@ exports.auth = (req, res) => {
         email,
         password,
       });
+      if (groupCode != null) {
+        Group.findOne({groupCode: groupCode}, (err, group) => {
+          if (err) {
+            res.json(err);
+          }
+          if (group) {
+            console.log(group)
+            user.group = group.groupCode
+          } else {
+            res.status(404).send({
+              message: "Group Not Found"
+            })
+          }
+        })
+      }
+     
       let todo1 = new Todo({
         user : user._id,
         todoText : "👉 Create My Daily Routines"

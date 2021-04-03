@@ -5,6 +5,9 @@ module.exports = (app) => {
   
     //get all blogs
     app.get("/blog", blog.getBlogs);
+
+    //get all blogs with group
+    app.get("/blog/:groupCode", blog.getBlogsWithGroup);
   
   };
   

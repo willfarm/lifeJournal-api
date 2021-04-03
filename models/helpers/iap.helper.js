@@ -48,7 +48,6 @@ appleReceiptVerify.config({
 
   }
   exports.renewOrCancelSubscriptions = async _ => {
-    console.log("cron")
     let m = moment().unix()
     console.log(m)
       //find users where their subscription expiration date is past now ($lte = less than or equal to)
@@ -57,11 +56,12 @@ appleReceiptVerify.config({
         if (users) {
           
           async function validate(user) {
-            console.log(user._id)
+            console.log("userID: " + user._id)
 
-            console.log(user.iapReceipt)
+            console.log("userReceipt: " + user.iapReceipt)
             try {
               let iapReceipt = user.iapReceipt
+              console.log(iapReceipt)
               // re-verify receipt to get the latest subscription status
               let purchases = await appleReceiptVerify.validate({
                 receipt: iapReceipt
@@ -89,7 +89,7 @@ appleReceiptVerify.config({
                 user.save()
               }
             } catch (error) {
-              console.log(error)
+              // console.log(error)
             }
           }
           for (let u of users) { 

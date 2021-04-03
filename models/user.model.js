@@ -55,6 +55,7 @@ const UserSchema = new mongoose.Schema({
   prayer: [Prayer],
   teachingNotes: [TeachingNotes],
   todo: [Todo],
+  group: String
 });
 
 UserSchema.pre("save", function (next) {

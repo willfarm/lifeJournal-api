@@ -34,6 +34,8 @@ require("./routes/dailyRoutine.routes")(app);
 require("./routes/prayer.routes")(app);
 require("./routes/iap.routes")(app);
 require("./routes/blog.routes")(app);
+require("./routes/group.routes")(app);
+
 require("./routes/stats.routes")(app);
 
 cron.schedule('* 12 * * *', function() {
