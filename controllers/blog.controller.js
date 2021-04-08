@@ -38,7 +38,7 @@ exports.getBlogs = (req, res) => {
                         "contentUrl" : group.contentUrl,
                         "author" : "Group Content",
                         "blogText" : "Connect with your Group",
-                        "imageUrl" : "http://lifejournal.io/wp-content/uploads/2021/04/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-1-scaled.jpg"}
+                        "imageUrl" : "https://lifejournal.io/wp-content/uploads/2021/04/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-1-scaled.jpg"}
       }
     }).then( () => {
       Blog.find()
