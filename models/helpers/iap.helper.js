@@ -42,8 +42,38 @@ appleReceiptVerify.config({
        }
       } catch(e) {
        // transaction receipt is invalid
-       console.log(e)
-       res.status(400).send({message: "invalid receipt", error: e})
+       try {
+         // attempt to verify receipt
+        var products = await appleReceiptVerify.validate({
+          excludeOldTransactions: true,
+          environment: ['sandbox'],
+          receipt: iapRecipt
+        });
+        // check if products exist
+        if (Array.isArray(products)) {
+          console.log(products[0])
+          // get the latest purchased product (subscription tier)
+          let { expirationDate } = products[0];
+          // convert ms to secs 
+          let expirationUnix = Math.round(expirationDate / 1000);
+
+          var u = await User.findOneAndUpdate({_id : user}, 
+            {iapExpirationDate : expirationUnix,
+            iapReceipt : iapRecipt,
+            subscriptionStatus : "subscribed"})
+          // // persist in database
+          // User.findOneAndUpdate({_id : user}, 
+          //   {iapExpirationDate : expirationUnix,
+          //   iapReceipt : iapRecipt,
+          //   subscriptionStatus : "subscribed"})
+          u.save()
+          .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
+          .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
+        }
+       } catch (e) {
+        console.log(e)
+        res.status(400).send({message: "invalid receipt", error: e})
+       }
       }
 
   }
