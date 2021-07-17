@@ -28,19 +28,16 @@ appleReceiptVerify.config({
           // convert ms to secs 
           let expirationUnix = Math.round(expirationDate / 1000);
 
-          var u = await User.findOneAndUpdate({_id : user}, 
-            {iapExpirationDate : expirationUnix,
-            iapReceipt : iapRecipt,
-            subscriptionStatus : "subscribed"})
-          // // persist in database
-          // User.findOneAndUpdate({_id : user}, 
-          //   {iapExpirationDate : expirationUnix,
-          //   iapReceipt : iapRecipt,
-          //   subscriptionStatus : "subscribed"})
-          console.log(u)
-          u.save()
+          var u = User.findById(user)
+          .then((user) => {
+            user.iapExpirationDate = expirationUnix
+            user.iapReceipt = iapRecipt
+            user.subscriptionStatus = "subscribed"
+            user.save();
+            console.log("in user save")
+          })
           
-          .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
+          .then(user => res.status(200).send({message: 'success verifying new subscription', user: u}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
        }
       } catch(e) {
@@ -61,7 +58,7 @@ appleReceiptVerify.config({
           let expirationUnix = Math.round(expirationDate / 1000);
 
           // var u = await User.findOne({_id : user})
-          User.findById(user)
+          var u = User.findById(user)
           .then((user) => {
             user.iapExpirationDate = expirationUnix
             user.iapReceipt = iapRecipt
@@ -77,7 +74,7 @@ appleReceiptVerify.config({
           
           .then(user => {
             console.log("in response")
-            res.status(200).send({message: 'success verifying new subscription', user: user})})
+            res.status(200).send({message: 'success verifying new subscription', user: u})})
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
         }
        } catch (e) {
