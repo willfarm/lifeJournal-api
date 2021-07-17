@@ -6,19 +6,21 @@ appleReceiptVerify.config({
   secret: process.env.APPLE_SHARED_SECRET,
   environment: [process.env.APPLE_APP_STORE_ENV],
   excludeOldTransactions: true,
+  verbose: true
 });
 
   exports.newSubscription = async (req, res) => {
     var { user, iapRecipt } = req.body
     iapRecipt = iapRecipt.replace(/-/g, '+')
     iapRecipt = iapRecipt.replace(/_/g, '/')
-    
+    console.log(iapRecipt)
     try {
         // attempt to verify receipt
         var products = await appleReceiptVerify.validate({
           excludeOldTransactions: true,
           receipt: iapRecipt
         });
+        console.log(products)
         // check if products exist
         if (Array.isArray(products)) {
           console.log(products[0])
@@ -49,6 +51,7 @@ appleReceiptVerify.config({
           environment: ['sandbox'],
           receipt: iapRecipt
         });
+        console.log(products)
         // check if products exist
         if (Array.isArray(products)) {
           console.log(products[0])
