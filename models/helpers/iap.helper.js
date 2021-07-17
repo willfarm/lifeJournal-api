@@ -20,7 +20,6 @@ appleReceiptVerify.config({
           excludeOldTransactions: true,
           receipt: iapRecipt
         });
-        console.log(products)
         // check if products exist
         if (Array.isArray(products)) {
           console.log(products[0])
@@ -38,7 +37,9 @@ appleReceiptVerify.config({
           //   {iapExpirationDate : expirationUnix,
           //   iapReceipt : iapRecipt,
           //   subscriptionStatus : "subscribed"})
+          console.log(u)
           u.save()
+          
           .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
        }
@@ -51,7 +52,6 @@ appleReceiptVerify.config({
           environment: ['sandbox'],
           receipt: iapRecipt
         });
-        console.log(products)
         // check if products exist
         if (Array.isArray(products)) {
           console.log(products[0])
@@ -69,6 +69,7 @@ appleReceiptVerify.config({
           //   {iapExpirationDate : expirationUnix,
           //   iapReceipt : iapRecipt,
           //   subscriptionStatus : "subscribed"})
+          console.log(u)
           u.save()
           .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
