@@ -60,17 +60,22 @@ appleReceiptVerify.config({
           // convert ms to secs 
           let expirationUnix = Math.round(expirationDate / 1000);
 
-          var u = await User.findOneAndUpdate({_id : user}, 
-            {iapExpirationDate : expirationUnix,
-            iapReceipt : iapRecipt,
-            subscriptionStatus : "subscribed"})
+          // var u = await User.findOne({_id : user})
+          User.findById(userId)
+          .then((user) => {
+            user.prayer.push(prayer);
+            user.iapExpirationDate = expirationUnix
+            user.iapReceipt = iapRecipt
+            user.subscriptionStatus = "subscribed"
+            user.save();
+            
+          })
           // // persist in database
           // User.findOneAndUpdate({_id : user}, 
           //   {iapExpirationDate : expirationUnix,
           //   iapReceipt : iapRecipt,
           //   subscriptionStatus : "subscribed"})
-          console.log(u)
-          u.save()
+          
           .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
         }
