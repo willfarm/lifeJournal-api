@@ -25,9 +25,9 @@ appleReceiptVerify.config({
         if (Array.isArray(products)) {
           console.log(products[0])
           // get the latest purchased product (subscription tier)
-          let { expirationDate } = products[0];
+          let { expires_date_ms } = products[0];
           // convert ms to secs 
-          let expirationUnix = Math.round(expirationDate / 1000);
+          let expirationUnix = Math.round(expires_date_ms / 1000);
 
           var u = await User.findOneAndUpdate({_id : user}, 
             {iapExpirationDate : expirationUnix,
@@ -56,9 +56,9 @@ appleReceiptVerify.config({
         if (Array.isArray(products)) {
           console.log(products[0])
           // get the latest purchased product (subscription tier)
-          let { expirationDate } = products[0];
+          let { expires_date_ms } = products[0];
           // convert ms to secs 
-          let expirationUnix = Math.round(expirationDate / 1000);
+          let expirationUnix = Math.round(expires_date_ms / 1000);
 
           var u = await User.findOneAndUpdate({_id : user}, 
             {iapExpirationDate : expirationUnix,
