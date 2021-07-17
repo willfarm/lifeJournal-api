@@ -63,7 +63,6 @@ appleReceiptVerify.config({
           // var u = await User.findOne({_id : user})
           User.findById(userId)
           .then((user) => {
-            user.prayer.push(prayer);
             user.iapExpirationDate = expirationUnix
             user.iapReceipt = iapRecipt
             user.subscriptionStatus = "subscribed"
