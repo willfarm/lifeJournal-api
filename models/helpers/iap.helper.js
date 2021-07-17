@@ -61,7 +61,7 @@ appleReceiptVerify.config({
           let expirationUnix = Math.round(expirationDate / 1000);
 
           // var u = await User.findOne({_id : user})
-          User.findById(userId)
+          User.findById(user)
           .then((user) => {
             user.iapExpirationDate = expirationUnix
             user.iapReceipt = iapRecipt
