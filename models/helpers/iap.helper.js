@@ -25,7 +25,7 @@ appleReceiptVerify.config({
         if (Array.isArray(products)) {
           console.log(products[0])
           // get the latest purchased product (subscription tier)
-          let { expires_date_ms } = products[0];
+          let { expires_date_ms } = products[0]["latest_recipt_info"];
           // convert ms to secs 
           let expirationUnix = Math.round(expires_date_ms / 1000);
 
