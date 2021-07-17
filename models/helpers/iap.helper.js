@@ -37,7 +37,7 @@ appleReceiptVerify.config({
             console.log("in user save")
           })
           
-          .then(user => res.status(200).send({message: 'success verifying new subscription', user: u}))
+          .then(user => res.status(200).send({message: 'success verifying new subscription', user: {"subscriptionStatus": "subscribed"}}))
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
        }
       } catch(e) {
@@ -74,7 +74,7 @@ appleReceiptVerify.config({
           
           .then(user => {
             console.log("in response")
-            res.status(200).send({message: 'success verifying new subscription', user: u})})
+            res.status(200).send({message: 'success verifying new subscription', user: {"subscriptionStatus": "subscribed"}})})
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
         }
        } catch (e) {
