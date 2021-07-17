@@ -67,7 +67,7 @@ appleReceiptVerify.config({
             user.iapReceipt = iapRecipt
             user.subscriptionStatus = "subscribed"
             user.save();
-            
+            console.log("in user save")
           })
           // // persist in database
           // User.findOneAndUpdate({_id : user}, 
@@ -75,7 +75,9 @@ appleReceiptVerify.config({
           //   iapReceipt : iapRecipt,
           //   subscriptionStatus : "subscribed"})
           
-          .then(user => res.status(200).send({message: 'success verifying new subscription', user: user}))
+          .then(user => {
+            console.log("in response")
+            res.status(200).send({message: 'success verifying new subscription', user: user})})
           .catch(err => res.status(400).send({message: `can't find user by id`, error: err}))
         }
        } catch (e) {
